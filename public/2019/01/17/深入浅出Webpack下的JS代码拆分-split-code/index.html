@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>深入浅出Webpack下的JS代码拆分(split code) | LiuRun&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1一个网站该如何以最佳的方式向用户发送资源文件？有很多不同的场景，不同的技术和不同的术语。在这篇文章里，我希望能够让你明白：哪种文件分割策略最适合你的网站和用户，以及如何实现。 根据 Webpack 术语表，有两种不同的文件分割类型。它们看起来似乎可以互换，但显然不行：  捆绑拆分：创建更多、更小的文件（但每个请求都需要加载它们）以获得更好的缓存效果。 代码拆分：动态加载代码，用户只下载他们正在查">
+<meta name="keywords" content="Webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入浅出Webpack下的JS代码拆分(split code)">
+<meta property="og:url" content="http://yoursite.com/2019/01/17/深入浅出Webpack下的JS代码拆分-split-code/index.html">
+<meta property="og:site_name" content="LiuRun&#39;s Blog">
+<meta property="og:description" content="1一个网站该如何以最佳的方式向用户发送资源文件？有很多不同的场景，不同的技术和不同的术语。在这篇文章里，我希望能够让你明白：哪种文件分割策略最适合你的网站和用户，以及如何实现。 根据 Webpack 术语表，有两种不同的文件分割类型。它们看起来似乎可以互换，但显然不行：  捆绑拆分：创建更多、更小的文件（但每个请求都需要加载它们）以获得更好的缓存效果。 代码拆分：动态加载代码，用户只下载他们正在查">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-17T08:46:12.032Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入浅出Webpack下的JS代码拆分(split code)">
+<meta name="twitter:description" content="1一个网站该如何以最佳的方式向用户发送资源文件？有很多不同的场景，不同的技术和不同的术语。在这篇文章里，我希望能够让你明白：哪种文件分割策略最适合你的网站和用户，以及如何实现。 根据 Webpack 术语表，有两种不同的文件分割类型。它们看起来似乎可以互换，但显然不行：  捆绑拆分：创建更多、更小的文件（但每个请求都需要加载它们）以获得更好的缓存效果。 代码拆分：动态加载代码，用户只下载他们正在查">
+  
+    <link rel="alternate" href="/atom.xml" title="LiuRun&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Liu Run</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item" href="/about">
+                专栏
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                专栏
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>深入浅出Webpack下的JS代码拆分(split code)</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="/images/use_img.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> LiuRun</span>
+                <span class="post-date sub-title">at: 2019-01-17</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/Webpack/">Webpack</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一个网站该如何以最佳的方式向用户发送资源文件？有很多不同的场景，不同的技术和不同的术语。在这篇文章里，我希望能够让你明白：哪种文件分割策略最适合你的网站和用户，以及如何实现。</span><br></pre></td></tr></table></figure>
+<p>根据 Webpack 术语表，有两种不同的文件分割类型。它们看起来似乎可以互换，但显然不行：</p>
+<ul>
+<li>捆绑拆分：创建更多、更小的文件（但每个请求都需要加载它们）以获得更好的缓存效果。</li>
+<li>代码拆分：动态加载代码，用户只下载他们正在查看的内容所需的代码。</li>
+</ul>
+<p>第二种方法看起来更有吸引力，不是吗？事实上，有很多文章似乎都假设这是拆分 JavaScript 文件唯一有价值的方案。但我想要告诉你的是，对于很多网站来说，第一种方法更有价值，而且它应该是你首先要考虑的。</p>
+<h3 id="捆绑拆分"><a href="#捆绑拆分" class="headerlink" title="捆绑拆分"></a>捆绑拆分</h3><p>捆绑拆分背后的想法非常简单。如果你有一个巨大的文件，哪怕只是修改了一行代码，用户也必须再次下载整个文件。但是，如果你将它分成两个文件，那么用户只需要下载被修改的那个文件，浏览器会从缓存中获取另一个文件。</p>
+<p>捆绑拆分与缓存有关，因此对于首次访问网站的用户来说，有没有拆分其实并没有什么不同。</p>
+<p>对于频繁访问网站的用户来说，要衡量捆绑拆分所带来的性能提升可能也很棘手，但我们必须这样做！</p>
+<p>我需要一个表格来记录性能数据。下面是上述提到的场景：</p>
+<ul>
+<li>Alice 每周访问我们的网站一次，为期 10 周；</li>
+<li>我们每周更新一次网站；</li>
+<li>我们每周都会更新“产品列表”页面；</li>
+<li>我们还有一个“产品详细信息”页面，目前还未开发出来；</li>
+<li>在第 5 周，我们添加了一个新的 npm 包；</li>
+<li>在第 8 周，我们更新了一个现有的 npm 包。</li>
+</ul>
+<p>假设我们的 JavaScript 包大小是 400 KB，只包含 main.js 单个文件。</p>
+<p>我们的 Webpack 配置如下（我省略了不相关的配置）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: path.resolve(__dirname, &apos;src/index.js&apos;),</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;),</span><br><span class="line">    filename: &apos;[name].[contenthash].js&apos;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>每个礼拜，当我们做出一些变更时，这个包的 contenthash 就会发生变化。因此，每周 Alice 访问我们的网站时必须下载新的 400 KB 文件。</p>
+<p>下载量总共是 4.12 MB，为期 10 周。但我们可以做得更好。</p>
+<h3 id="拆分-vendor-包"><a href="#拆分-vendor-包" class="headerlink" title="拆分 vendor 包"></a>拆分 vendor 包</h3><p>现在，我们将包拆分为 main.js 和 vendor.js 文件。</p>
+<p>这很简单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: path.resolve(__dirname, &apos;src/index.js&apos;),</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;),</span><br><span class="line">    filename: &apos;[name].[contenthash].js&apos;,</span><br><span class="line">  &#125;,</span><br><span class="line">  optimization: &#123;</span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">      chunks: &apos;all&apos;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>Webpack 4 努力为你做最好的事情，甚至都不需要告诉它你想要如何拆分捆绑包。</p>
+<p>有人说，“这样看起来很整洁，不错，Webpack！”</p>
+<p>也有人说，“你都对我的包做了什么？”</p>
+<p>设置 optimization.splitChunks.chunks =’all’意味着“将 node_modules 所有内容都放入名为 vendors~main.js 的文件中”。</p>
+<p>经过这个基本的捆绑拆分，Alice 每次访问网站时仍然需要下载 200 KB 的 main.js 新文件，然后分别在第 1 周，第 8 周和第 5 周下载 200 KB 的 vendor.js 文件。</p>
+<p>现在的下载量总共是 2.64 MB。</p>
+<p>减少了 36％。在配置中加了五行代码，效果还不错。</p>
+<p>这样的性能提升似乎有点微不足道，因为它是 10 周加起来的总和，但不管怎样，向用户发送的字节数确确实实减少了 36％，我们应该为自己感到自豪。</p>
+<p>但我们可以做得更好。</p>
+<h3 id="拆分每个-npm-包"><a href="#拆分每个-npm-包" class="headerlink" title="拆分每个 npm 包"></a>拆分每个 npm 包</h3><p>vendors.js 遇到了与原来 main.js 文件相同的问题——对文件的一部分做出变更就必须重新下载整个文件。</p>
+<p>那么为什么不为每个 npm 包提供单独的文件呢？这很容易做到。</p>
+<p>所以让我们将 react、lodash、redux 和 moment 等拆分成不同的文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line">const webpack = require(&apos;webpack&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: path.resolve(__dirname, &apos;src/index.js&apos;),</span><br><span class="line">  plugins: [</span><br><span class="line">    new webpack.HashedModuleIdsPlugin(), // so that file hashes don&apos;t change unexpectedly</span><br><span class="line">  ],</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;),</span><br><span class="line">    filename: &apos;[name].[contenthash].js&apos;,</span><br><span class="line">  &#125;,</span><br><span class="line">  optimization: &#123;</span><br><span class="line">    runtimeChunk: &apos;single&apos;,</span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">      chunks: &apos;all&apos;,</span><br><span class="line">      maxInitialRequests: Infinity,</span><br><span class="line">      minSize: 0,</span><br><span class="line">      cacheGroups: &#123;</span><br><span class="line">        vendor: &#123;</span><br><span class="line">          test: /[\\/]node_modules[\\/]/,</span><br><span class="line">          name(module) &#123;</span><br><span class="line">            // get the name. E.g. node_modules/packageName/not/this/part.js</span><br><span class="line">            // or node_modules/packageName</span><br><span class="line">            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];</span><br><span class="line"></span><br><span class="line">            // npm package names are URL-safe, but some servers don&apos;t like @ symbols</span><br><span class="line">            return `npm.$&#123;packageName.replace(&apos;@&apos;, &apos;&apos;)&#125;`;</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>Webpack 的<a href="https://webpack.js.org/guides/caching/" target="_blank" rel="noopener">文档</a>对此做出了很好的解释，我会大致解释一下 groovy 的部分，因为我在这个上面花了很多时间：</p>
+<ul>
+<li>Webpack 提供了一些不是那么聪明的默认设置，比如分割输出文件最多为 3 个，最小文件的大小为 30 KB（更小的文件将被连接在一起），所以我覆盖了这些设置。</li>
+<li>我们通过 cacheGroups 来定义 Webpack 应该如何将代码块分组到输出文件中。在这里我使用了“vendor”，用于处理从 node_modules 加载的模块。通常，你只需将输出文件的 name 定义为字符串，但我将 name 定义为一个函数（在解析每个文件时调用这个函数）。然后我基于模块的路径返回包的名称。因此，对于每个包，我们都会得到一个文件，例如 npm.react-dom.899sadfhj4.js。</li>
+<li>出于发布的目的，NPM 包名称必须是 URL 安全的（<a href="https://docs.npmjs.com/files/package.json#name），" target="_blank" rel="noopener">https://docs.npmjs.com/files/package.json#name），</a> 因此我们不需要对 packageName 进行 encodeURI。但是，我遇到一个问题，即.NET 服务器不支持带有 @的文件名，所以我在这个代码片段中将它替换掉。</li>
+<li>整个设置很棒，不需要额外的维护——我不需要引用任何包。</li>
+</ul>
+<p>Alice 每周仍然会重新下载 200 KB 的 main.js 文件，并且在她第一次访问网站时仍然会下载 200 KB 的 npm 软件包，但她绝不会下载相同的软件包两次。</p>
+<p>现在的下载总量是 2.24 MB，与基线相比减少了 44％。</p>
+<h3 id="拆分应用程序代码"><a href="#拆分应用程序代码" class="headerlink" title="拆分应用程序代码"></a>拆分应用程序代码</h3><p>现在让我们回到可怜的 Alice 一次又一次下载的 main.js 文件。</p>
+<p>我之前提到过，我们的网站上有两个截然不同的部分：产品列表页面和产品详细信息页面。每个部分不一样的代码为 25 KB（共享代码为 150 KB）。</p>
+<p>“产品详细信息”页面现在并没有发生太大变化，因此，如果我们将其变为单独的文件，大多数时候可以从缓存中获取它。</p>
+<p>另外，我们有一个巨大的内联 SVG 文件用于渲染图标，大小为 25 KB，而且很少会发生改动。</p>
+<p>我们应该对此做些什么。</p>
+<p>我们手动添加了一些条目，告诉 Webpack 为每一项创建一个文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    main: path.resolve(__dirname, &apos;src/index.js&apos;),</span><br><span class="line">    ProductList: path.resolve(__dirname, &apos;src/ProductList/ProductList.js&apos;),</span><br><span class="line">    ProductPage: path.resolve(__dirname, &apos;src/ProductPage/ProductPage.js&apos;),</span><br><span class="line">    Icon: path.resolve(__dirname, &apos;src/Icon/Icon.js&apos;),</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;),</span><br><span class="line">    filename: &apos;[name].[contenthash:8].js&apos;,</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    new webpack.HashedModuleIdsPlugin(), // so that file hashes don&apos;t change unexpectedly</span><br><span class="line">  ],</span><br><span class="line">  optimization: &#123;</span><br><span class="line">    runtimeChunk: &apos;single&apos;,</span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">      chunks: &apos;all&apos;,</span><br><span class="line">      maxInitialRequests: Infinity,</span><br><span class="line">      minSize: 0,</span><br><span class="line">      cacheGroups: &#123;</span><br><span class="line">        vendor: &#123;</span><br><span class="line">          test: /[\\/]node_modules[\\/]/,</span><br><span class="line">          name(module) &#123;</span><br><span class="line">            // get the name. E.g. node_modules/packageName/not/this/part.js</span><br><span class="line">            // or node_modules/packageName</span><br><span class="line">            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];</span><br><span class="line"></span><br><span class="line">            // npm package names are URL-safe, but some servers don&apos;t like @ symbols</span><br><span class="line">            return `npm.$&#123;packageName.replace(&apos;@&apos;, &apos;&apos;)&#125;`;</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Webpack 还会为 ProductList 和 ProductPage 之间共享的内容创建文件，这样我们就不会得到重复的代码。</p>
+<p>这样就可以为亲爱的 Alice 节省 50 KB 的下载量。</p>
+<p>截止到目前，我们只是通过修改 Webpack 配置来实现这一切——我们没有对应用程序代码进行任何更改。</p>
+<p>我们的目标是将应用程序拆分为合理的小文件，让用户下载更少的代码。</p>
+<p>因此，接下来我们要进入代码拆分，但首先我想要解决你现在想到的三个问题。问题 1：大量的网络请求不是更慢吗？</p>
+<p>对于这个问题，答案是一个非常响亮的“不”。</p>
+<p>在 HTTP/1.1 时代或许是这种情况，但对于 HTTP/2 来说并非如此。</p>
+<p>尽管一些著名的文章得出“即使使用 HTTP/2，下载太多文件仍然较慢”的结论，但在这些文章中，他们所谓的“太多”文件是指“数百个”文件。所以请记住，如果你有数百个文件，可能会达到并发上限。(有点物极必反的味道)</p>
+<p>现在，让我们谈谈另一种类型的文件拆分。</p>
+<h3 id="代码拆分（不加载不需要的代码）"><a href="#代码拆分（不加载不需要的代码）" class="headerlink" title="代码拆分（不加载不需要的代码）"></a>代码拆分（不加载不需要的代码）</h3><p>这种方法可能只对某些网站有用。</p>
+<p>我发明了 20/20 规则：如果你的网站的某些部分只有 20％的用户访问，而这部分超过了整个网站 20％的 JavaScript，那么你应该按需加载这些代码。</p>
+<p>显然，因为存在更复杂的场景，所以这个数字显然需要做出调整。但关键在于，肯定存在一个平衡点，到了这个平衡点，代码拆分对于你的网站来说可能就没有意义了。</p>
+<h4 id="如何找到这个平衡点？"><a href="#如何找到这个平衡点？" class="headerlink" title="如何找到这个平衡点？"></a>如何找到这个平衡点？</h4><p>假设你有一个购物网站，你想知道是否应该对“结帐”代码进行拆分，因为只有 30％的用户会进行这个操作。</p>
+<p>你需要弄清楚有多少代码是只与结账这个功能有关的。因为在进行“代码拆分”之前已经进行了“捆绑拆分”，因此你可能已经知道这部分究竟有多少代码。</p>
+<p>只与结帐有关的代码是 7 KB，其余部分是 300 KB。看到这个我会说，我不会想去拆分这个代码，原因如下：</p>
+<ul>
+<li>预先加载它并不慢，因为你是并行加载这些文件的。而且你可以试试是否有可能记录 300 KB 和 307 KB 加载时间的差异。</li>
+<li>如果你稍后加载这段代码，用户在点击“Take My Money”后将不得不等待加载这个文件——这是你最不想遇到摩擦阻力的时候。</li>
+<li>进行代码拆分需要更改应用程序代码。它会在以前只有同步逻辑的地方引入异步逻辑。这不是火箭科学，但它的复杂性，我认为应该通过对用户体验可感知的改进来证明。</li>
+</ul>
+<p>现在让我们来看看两个需要代码拆分的例子。</p>
+<p>::: hljs-center</p>
+<h3 id="polyfill"><a href="#polyfill" class="headerlink" title="polyfill"></a>polyfill</h3><p>:::</p>
+<p>我之所以从这里开始讲起，是因为它适用于大多数网站，而且介绍起来相对简单。</p>
+<p>我在网站上使用了很多花哨的功能，有一个文件导入了所有需要的 <a href="https://www.babeljs.cn/docs/usage/polyfill/" target="_blank" rel="noopener">polyfill</a>。其中包括以下八行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">require(&apos;whatwg-fetch&apos;);</span><br><span class="line">require(&apos;intl&apos;);</span><br><span class="line">require(&apos;url-polyfill&apos;);</span><br><span class="line">require(&apos;core-js/web/dom-collections&apos;);</span><br><span class="line">require(&apos;core-js/es6/map&apos;);</span><br><span class="line">require(&apos;core-js/es6/string&apos;);</span><br><span class="line">require(&apos;core-js/es6/array&apos;);</span><br><span class="line">require(&apos;core-js/es6/object&apos;);</span><br></pre></td></tr></table></figure>
+<p>我在 index.js 的顶部导入了这个文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import &apos;./polyfills&apos;;</span><br><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import ReactDOM from &apos;react-dom&apos;;</span><br><span class="line">import App from &apos;./App/App&apos;;</span><br><span class="line">import &apos;./index.css&apos;;</span><br><span class="line"></span><br><span class="line">const render = () =&gt; &#123;</span><br><span class="line">  ReactDOM.render(&lt;App /&gt;, document.getElementById(&apos;root&apos;));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">render(); // yes I am pointless, for now</span><br></pre></td></tr></table></figure></p>
+<p>根据之前的捆绑拆分的 Webpack 配置，polyfill 将自动被拆分为四个不同的文件，因为这里有四个 npm 包。它们总共约 25 KB，但 90％的浏览器都不需要它们，所以有必要进行动态加载。</p>
+<p>使用 Webpack 4 和 import() 语法（不要与 import 语法混淆）可以很方便地实现 polyfill 的条件加载。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import ReactDOM from &apos;react-dom&apos;;</span><br><span class="line">import App from &apos;./App/App&apos;;</span><br><span class="line">import &apos;./index.css&apos;;</span><br><span class="line"></span><br><span class="line">const render = () =&gt; &#123;</span><br><span class="line">  ReactDOM.render(&lt;App /&gt;, document.getElementById(&apos;root&apos;));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (</span><br><span class="line">  &apos;fetch&apos; in window &amp;&amp;</span><br><span class="line">  &apos;Intl&apos; in window &amp;&amp;</span><br><span class="line">  &apos;URL&apos; in window &amp;&amp;</span><br><span class="line">  &apos;Map&apos; in window &amp;&amp;</span><br><span class="line">  &apos;forEach&apos; in NodeList.prototype &amp;&amp;</span><br><span class="line">  &apos;startsWith&apos; in String.prototype &amp;&amp;</span><br><span class="line">  &apos;endsWith&apos; in String.prototype &amp;&amp;</span><br><span class="line">  &apos;includes&apos; in String.prototype &amp;&amp;</span><br><span class="line">  &apos;includes&apos; in Array.prototype &amp;&amp;</span><br><span class="line">  &apos;assign&apos; in Object &amp;&amp;</span><br><span class="line">  &apos;entries&apos; in Object &amp;&amp;</span><br><span class="line">  &apos;keys&apos; in Object</span><br><span class="line">) &#123;</span><br><span class="line">  render();</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  import(&apos;./polyfills&apos;).then(render);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果浏览器支持所有功能，那么就渲染页面，否则的话就导入 polyfill，然后渲染页面。在浏览器中运行这些代码时，Webpack 的运行时将负责加载这四个 npm 包，在下载和解析它们之后，将调用 render()……</p>
+<p>顺便说一句，要使用 import()，需要 Babel 的 dynamic-import 插件 (<a href="https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import/)。" target="_blank" rel="noopener">https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import/)。</a> 另外，正如 Webpack 文档解释的那样，import() 使用了 promise，所以你需要单独对其进行 polyfill。</p>
+<p>这个很简单，对吗？下面来点稍微有难度的。</p>
+<p>::: hljs-center</p>
+<h3 id="基于路由的动态加载（特定于-React）"><a href="#基于路由的动态加载（特定于-React）" class="headerlink" title="基于路由的动态加载（特定于 React）"></a>基于路由的动态加载（特定于 React）</h3><p>:::</p>
+<p>回到 Alice 的例子，我们假设网站有一个“管理”功能，卖家可以登录并管理他们的商品。</p>
+<p>这部分有很多精彩的功能，大量的图表，需要很多 npm 大图表库。因为已经在进行了捆绑拆分，所以它们都是 100 KB 左右的文件。</p>
+<p>目前，我的路由设置是当用户访问 /admin 时，将会渲染<adminpage>。当 Webpack 将所有内容捆绑在一起时，它会找到 import AdminPage from ./AdminPage.js，然后说，“我需要将它包含在初始化代码中”。</adminpage></p>
+<p>但我们不希望它这样。我们需要使用动态导入，例如 import(‘/AdminPage.js’)，这样 Webpack 就知道要进行动态加载了。</p>
+<p>这很酷，不需要做任何配置。</p>
+<p>因此，我可以创建另一个组件，当用户访问 /admin 时就会渲染这个组件，而不是直接引用 AdminPage。它看起来可能像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line"></span><br><span class="line">class AdminPageLoader extends React.PureComponent &#123;</span><br><span class="line">  constructor(props) &#123;</span><br><span class="line">    super(props);</span><br><span class="line"></span><br><span class="line">    this.state = &#123;</span><br><span class="line">      AdminPage: null,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    import(&apos;./AdminPage&apos;).then(module =&gt; &#123;</span><br><span class="line">      this.setState(&#123; AdminPage: module.default &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    const &#123; AdminPage &#125; = this.state;</span><br><span class="line"></span><br><span class="line">    return AdminPage</span><br><span class="line">      ? &lt;AdminPage &#123;...this.props&#125; /&gt;</span><br><span class="line">      : &lt;div&gt;Loading...&lt;/div&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default AdminPageLoader;</span><br></pre></td></tr></table></figure>
+<p>这个概念很简单。在加载这个组件时（意味着用户在访问 /admin），我们将动态加载./AdminPage.js，然后在 state 中保存对该组件的引用。</p>
+<p>在等待<adminpage>加载时，我们只是在 render() 方法中渲染<div> Loading… </div>，或者在加载完成时渲染<adminpage>，并保存在 state 中。</adminpage></adminpage></p>
+<p>简单总结： </p>
+<ul>
+<li>如果用户会多次访问你的网站，请将你的代码拆分为很多小文件。</li>
+<li>如果你的网站有些部分是大部分用户不会访问到的，请动态加载这些代码。</li>
+</ul>
+<h3 id="技术无罪，分享有情"><a href="#技术无罪，分享有情" class="headerlink" title="技术无罪，分享有情"></a>技术无罪，分享有情</h3><p>英文原文<br><a href="https://hackernoon.com/the-100-correct-way-to-split-your-chunks-with-webpack-f8a9df5b7758" target="_blank" rel="noopener">https://hackernoon.com/the-100-correct-way-to-split-your-chunks-with-webpack-f8a9df5b7758</a></p>
+
+        </div>
+        <div class="post-reply">
+            
+            <div class="vcomments"></div>
+
+            <!--Leancloud 操作库:-->
+            <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+            <!--Valine 的核心代码库:-->
+            <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+            <script>
+                new Valine({
+                    el: '.vcomments',
+                    appId: "cUp1F343i6H7veqjhDDOOG7s-gzGzoHsz",
+                    appKey: "cBN1k4HFtguRAnAlQTW4Kcua",
+                    placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊! 评论我',
+                    enable: true,
+                    notify: false,
+                    verify: false,
+                    pageSize: 10
+                })
+            </script>
+            
+
+            
+
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © Liu Run 2019
+        <br>
+        <!--Work Email: run.liu01@hand-china.com-->
+        <br>
+        Thanks for Theme by <a href="http://haojen.github.io/">Haojen Ma</a>
+        <br>
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

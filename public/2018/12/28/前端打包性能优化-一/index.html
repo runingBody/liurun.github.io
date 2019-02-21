@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>前端打包性能优化(一) | LiuRun&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="每日一言：：“念天地之悠悠 独怆然而泪下”在实际项目开发中，随着代码量的骤增，项目后期打包进程很慢，导致开发效率被影响。这时候我们就不得不重视到前端打包性能的优化问题了。 已实际的项目开发为例： 打包优化的步骤主要分为三步：第一步为：增加HappyPack进程配置数；第二步为：使用ParallelUglifyPlugin开启多进程压缩JS文件；第三步为：使用DllPlugin减少基础模块编译次数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端打包性能优化(一)">
+<meta property="og:url" content="http://yoursite.com/2018/12/28/前端打包性能优化-一/index.html">
+<meta property="og:site_name" content="LiuRun&#39;s Blog">
+<meta property="og:description" content="每日一言：：“念天地之悠悠 独怆然而泪下”在实际项目开发中，随着代码量的骤增，项目后期打包进程很慢，导致开发效率被影响。这时候我们就不得不重视到前端打包性能的优化问题了。 已实际的项目开发为例： 打包优化的步骤主要分为三步：第一步为：增加HappyPack进程配置数；第二步为：使用ParallelUglifyPlugin开启多进程压缩JS文件；第三步为：使用DllPlugin减少基础模块编译次数。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-28T07:52:44.326Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端打包性能优化(一)">
+<meta name="twitter:description" content="每日一言：：“念天地之悠悠 独怆然而泪下”在实际项目开发中，随着代码量的骤增，项目后期打包进程很慢，导致开发效率被影响。这时候我们就不得不重视到前端打包性能的优化问题了。 已实际的项目开发为例： 打包优化的步骤主要分为三步：第一步为：增加HappyPack进程配置数；第二步为：使用ParallelUglifyPlugin开启多进程压缩JS文件；第三步为：使用DllPlugin减少基础模块编译次数。">
+  
+    <link rel="alternate" href="/atom.xml" title="LiuRun&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Liu Run</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item" href="/about">
+                专栏
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                专栏
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>前端打包性能优化(一)</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="/images/use_img.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> LiuRun</span>
+                <span class="post-date sub-title">at: 2018-12-28</span>
+            </div>
+            
+                <div>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <h2 id="每日一言：：“念天地之悠悠-独怆然而泪下”"><a href="#每日一言：：“念天地之悠悠-独怆然而泪下”" class="headerlink" title="每日一言：：“念天地之悠悠 独怆然而泪下”"></a>每日一言：：“念天地之悠悠 独怆然而泪下”</h2><p>在实际项目开发中，随着代码量的骤增，项目后期打包进程很慢，导致开发效率被影响。这时候我们就不得不重视到前端打包性能的优化问题了。</p>
+<p>已实际的项目开发为例：</p>
+<h3 id="打包优化的步骤主要分为三步："><a href="#打包优化的步骤主要分为三步：" class="headerlink" title="打包优化的步骤主要分为三步："></a>打包优化的步骤主要分为三步：</h3><h4 id="第一步为：增加HappyPack进程配置数；"><a href="#第一步为：增加HappyPack进程配置数；" class="headerlink" title="第一步为：增加HappyPack进程配置数；"></a>第一步为：增加HappyPack进程配置数；</h4><h4 id="第二步为：使用ParallelUglifyPlugin开启多进程压缩JS文件；"><a href="#第二步为：使用ParallelUglifyPlugin开启多进程压缩JS文件；" class="headerlink" title="第二步为：使用ParallelUglifyPlugin开启多进程压缩JS文件；"></a>第二步为：使用ParallelUglifyPlugin开启多进程压缩JS文件；</h4><h4 id="第三步为：使用DllPlugin减少基础模块编译次数。"><a href="#第三步为：使用DllPlugin减少基础模块编译次数。" class="headerlink" title="第三步为：使用DllPlugin减少基础模块编译次数。"></a>第三步为：使用DllPlugin减少基础模块编译次数。</h4><p>下面我们将分别对这三个步骤进行操作说明和原理说明。</p>
+<h5 id="1-增加HappyPack进程配置数"><a href="#1-增加HappyPack进程配置数" class="headerlink" title="1. 增加HappyPack进程配置数"></a>1. 增加HappyPack进程配置数</h5><p>整个构建流程中，最耗时的就是Loader对文件的转换操作。hap-cloud已经使用了HappyPack开启多进程进行文件转换，加快了Loader转换过程。但是hap-cloud开启的HappyPack进程数都较少，可以加大一些。<br>①打开boot/webpack/webpack.pro.config.js文件<br>找到plugins配置，将每个new HappyPack的threads配置改为4<br>如图：</p>
+<p>备注：<br>       欲优化本地编译速度，可在boot/webpack/webpack.config.js中进行相同的配置。</p>
+<h5 id="2-使用ParallelUglifyPlugin开启多进程压缩JS文件"><a href="#2-使用ParallelUglifyPlugin开启多进程压缩JS文件" class="headerlink" title="2. 使用ParallelUglifyPlugin开启多进程压缩JS文件"></a>2. 使用ParallelUglifyPlugin开启多进程压缩JS文件</h5><p>hap-cloud使用webpack默认的UglifyJS插件来压缩JS代码，但是它使用的是单线程压缩代码，也就是说多个js文件需要被压缩，它需要一个个文件进行压缩，所以说正式环境打包压缩代码速度非常慢。<br>而ParallelUglifyPlugin插件压缩代码时，会开启多个子进程来压缩文件，每个子进程中仍然是使用UglifyJS插件去压缩文件。多个子进程并行处理多个子任务，压缩代码的速率提升了很多。<br>①打开boot/webpack/webpack.production.js文件<br>开头引入ParallelUglifyPlugin插件<br>const ParallelUglifyPlugin =require(‘webpack-parallel-uglify-plugin’);<br>找到UglifyJsPlugin插件配置，替换为ParallelUglifyPlugin插件<br>如图：</p>
+<p>修改后的<br>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">new ParallelUglifyPlugin(&#123;</span><br><span class="line"></span><br><span class="line">  cacheDir: &apos;.cache/&apos;,</span><br><span class="line"></span><br><span class="line">  uglifyES: &#123;</span><br><span class="line"></span><br><span class="line">    mangle: &#123;</span><br><span class="line"></span><br><span class="line">      except: [&apos;module&apos;, &apos;exports&apos;, &apos;require&apos;]</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    sourceMap: false,</span><br><span class="line"></span><br><span class="line">    output: &#123;</span><br><span class="line"></span><br><span class="line">      beautify: false,</span><br><span class="line"></span><br><span class="line">      comments: false,</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    compress: &#123;          </span><br><span class="line"></span><br><span class="line">      warnings: false</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure></p>
+<h5 id="3-使用DllPlugin减少基础模块编译次数"><a href="#3-使用DllPlugin减少基础模块编译次数" class="headerlink" title="3. 使用DllPlugin减少基础模块编译次数"></a>3. 使用DllPlugin减少基础模块编译次数</h5><p>DllPlugin动态链接库插件，其原理是把网页依赖的基础模块抽离出来打包到dll文件中，当需要导入的模块存在于某个dll中时，这个模块不再被打包，而是去dll中获取。为什么会提升构建速度呢？原因在于dll中大多包含的是常用的第三方模块，如react、react-dom，所以只要这些模块版本不升级，就只需被编译一次。<br>①打开boot/webpack文件夹<br>新建webpack.dll.config.js文件，文件内代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line"></span><br><span class="line">const webpack = require(&apos;webpack&apos;);</span><br><span class="line"></span><br><span class="line">const config = require(&apos;./webpack.file&apos;);</span><br><span class="line"></span><br><span class="line">const ParallelUglifyPlugin = require(&apos;webpack-parallel-uglify-plugin&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line"></span><br><span class="line">  entry: &#123;</span><br><span class="line"></span><br><span class="line">    react: [&apos;react&apos;, &apos;echarts/dist/echarts.js&apos;],</span><br><span class="line"></span><br><span class="line">    reactDom: [&apos;react-dom&apos;],</span><br><span class="line"></span><br><span class="line">    reactRouterDom: [&apos;react-router-dom&apos;, &apos;antd/lib&apos;],</span><br><span class="line"></span><br><span class="line">    rxjs: [&apos;rxjs&apos;, &apos;antd/dist/antd.less&apos;]</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  devtool: &apos;#source-map&apos;,</span><br><span class="line"></span><br><span class="line">  output: &#123;</span><br><span class="line"></span><br><span class="line">    path: path.join(__dirname, &apos;../dll&apos;, &apos;js&apos;),</span><br><span class="line"></span><br><span class="line">    filename: &apos;dll.[name].js&apos;,</span><br><span class="line"></span><br><span class="line">    library: &apos;[name]&apos;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  module: &#123;</span><br><span class="line"></span><br><span class="line">    loaders: [</span><br><span class="line"></span><br><span class="line">      &#123; loader: path.resolve(__dirname, &apos;../node_modules/happypack/loader.js&apos;), &#125;,</span><br><span class="line"></span><br><span class="line">    ],</span><br><span class="line"></span><br><span class="line">    rules: [</span><br><span class="line"></span><br><span class="line">      &#123; test: /\.(js|jsx)$/,</span><br><span class="line"></span><br><span class="line">        exclude: /node_modules/,</span><br><span class="line"></span><br><span class="line">        loader: &apos;happypack/loader?id=babel&apos;, &#125;,</span><br><span class="line"></span><br><span class="line">      &#123; test: /\.css$/,</span><br><span class="line"></span><br><span class="line">        use: [ &#123; loader: &apos;happypack/loader?id=css&apos;, &#125;, ], &#125;,</span><br><span class="line"></span><br><span class="line">      &#123;</span><br><span class="line"></span><br><span class="line">        test: /\.less$/,</span><br><span class="line"></span><br><span class="line">        use: [</span><br><span class="line"></span><br><span class="line">          &#123; loader: &apos;style-loader&apos;, &#125;,</span><br><span class="line"></span><br><span class="line">          &#123; loader: &apos;css-loader&apos;, &#125;,</span><br><span class="line"></span><br><span class="line">          &#123; loader: &apos;less-loader&apos;,</span><br><span class="line"></span><br><span class="line">            options: &#123;</span><br><span class="line"></span><br><span class="line">              sourceMap: true,</span><br><span class="line"></span><br><span class="line">              modifyVars: config.themeSetting.antdTheme,</span><br><span class="line"></span><br><span class="line">            &#125;, &#125;,</span><br><span class="line"></span><br><span class="line">        ],</span><br><span class="line"></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">    ],</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  plugins: [</span><br><span class="line"></span><br><span class="line">    new ParallelUglifyPlugin(&#123;</span><br><span class="line"></span><br><span class="line">      sourceMap: true,</span><br><span class="line"></span><br><span class="line">      cache: true,</span><br><span class="line"></span><br><span class="line">      parallel: true,</span><br><span class="line"></span><br><span class="line">    &#125;),</span><br><span class="line"></span><br><span class="line">    new webpack.DllPlugin(&#123;</span><br><span class="line"></span><br><span class="line">      path: path.join(__dirname, &apos;../dll&apos;, &apos;[name]-manifest.json&apos;),</span><br><span class="line"></span><br><span class="line">      name: &apos;[name]&apos;,</span><br><span class="line"></span><br><span class="line">      context: path.join(__dirname, &apos;..&apos;),</span><br><span class="line"></span><br><span class="line">    &#125;),</span><br><span class="line"></span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>②打开boot/webpack/webpack.pro.config.js文件<br>在页面开头引入AddAssetHtmlPlugin，代码如下：<br>const AddAssetHtmlPlugin = require(‘add-asset-html-webpack-plugin’);<br>找到plugin配置，在配置中添加DllReferencePlugin配置，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">new webpack.DllReferencePlugin(&#123;</span><br><span class="line"></span><br><span class="line">  context: path.join(__dirname, &apos;..&apos;),</span><br><span class="line"></span><br><span class="line">  manifest: require(&apos;../dll/react-manifest.json&apos;),</span><br><span class="line"></span><br><span class="line">&#125;),</span><br><span class="line"></span><br><span class="line">new webpack.DllReferencePlugin(&#123;</span><br><span class="line"></span><br><span class="line">  context: path.join(__dirname, &apos;..&apos;),</span><br><span class="line"></span><br><span class="line">  manifest: require(&apos;../dll/reactDom-manifest.json&apos;),</span><br><span class="line"></span><br><span class="line">&#125;),</span><br><span class="line"></span><br><span class="line">new webpack.DllReferencePlugin(&#123;</span><br><span class="line"></span><br><span class="line">  context: path.join(__dirname, &apos;..&apos;),</span><br><span class="line"></span><br><span class="line">  manifest: require(&apos;../dll/reactRouterDom-manifest.json&apos;),</span><br><span class="line"></span><br><span class="line">&#125;),</span><br><span class="line"></span><br><span class="line">new webpack.DllReferencePlugin(&#123;</span><br><span class="line"></span><br><span class="line">  context: path.join(__dirname, &apos;..&apos;),</span><br><span class="line"></span><br><span class="line">  manifest: require(&apos;../dll/rxjs-manifest.json&apos;),</span><br><span class="line"></span><br><span class="line">&#125;),</span><br><span class="line"></span><br><span class="line">new AddAssetHtmlPlugin(&#123;</span><br><span class="line"></span><br><span class="line">  filepath: path.resolve(__dirname, &apos;../dll/js/dll.*.js&apos;),</span><br><span class="line"></span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure></p>
+<p>③打开根目录下的.gitlab-ci.yml文件<br>找到npm run build指令，在上一行添加执行webpack.dll.config.js配置的指令。<br>代码如下：</p>
+<ul>
+<li>“node node_modules/webpack/bin/webpack.js –config webpack/webpack.dll.config.js”</li>
+</ul>
+<h5 id="备注："><a href="#备注：" class="headerlink" title="备注："></a>备注：</h5><pre><code>欲优化本地编译速度，可在boot/webpack/webpack.config.js中执行步骤②的配置（添加DllReferencePlugin配置），然后在boot目录下执行步骤③的指令，其他编译过程与原来一致。
+</code></pre><h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><p><a href="https://segmentfault.com/a/1190000015883378#articleHeader2" target="_blank" rel="noopener">三十分钟掌握Webpack性能优化 —</a><br><a href="https://segmentfault.com/a/1190000015048417#articleHeader31" target="_blank" rel="noopener">webpack优化 — </a><br><a href="https://segmentfault.com/a/1190000011884606" target="_blank" rel="noopener">从零开始的webpack生活-0x008：DLL加速编译 — </a></p>
+
+        </div>
+        <div class="post-reply">
+            
+            <div class="vcomments"></div>
+
+            <!--Leancloud 操作库:-->
+            <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+            <!--Valine 的核心代码库:-->
+            <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+            <script>
+                new Valine({
+                    el: '.vcomments',
+                    appId: "cUp1F343i6H7veqjhDDOOG7s-gzGzoHsz",
+                    appKey: "cBN1k4HFtguRAnAlQTW4Kcua",
+                    placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊! 评论我',
+                    enable: true,
+                    notify: false,
+                    verify: false,
+                    pageSize: 10
+                })
+            </script>
+            
+
+            
+
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © Liu Run 2019
+        <br>
+        <!--Work Email: run.liu01@hand-china.com-->
+        <br>
+        Thanks for Theme by <a href="http://haojen.github.io/">Haojen Ma</a>
+        <br>
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

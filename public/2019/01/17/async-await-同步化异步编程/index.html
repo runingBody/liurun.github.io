@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>async/await 同步化异步编程 | LiuRun&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ES7 引入的 async/await 是 JavaScript 异步编程的一个重大改进，提供了在不阻塞主线程的情况下使用同步代码异步访问资源的能力。在本文中，我们将从不同的角度探索 async/await，并演示如何正确有效地使用它们。 async/await 的好处async/await 给我们带来的最重要的好处是同步编程风格。我们来看一个例子。12345678910// async/awai">
+<meta property="og:type" content="article">
+<meta property="og:title" content="async&#x2F;await 同步化异步编程">
+<meta property="og:url" content="http://yoursite.com/2019/01/17/async-await-同步化异步编程/index.html">
+<meta property="og:site_name" content="LiuRun&#39;s Blog">
+<meta property="og:description" content="ES7 引入的 async/await 是 JavaScript 异步编程的一个重大改进，提供了在不阻塞主线程的情况下使用同步代码异步访问资源的能力。在本文中，我们将从不同的角度探索 async/await，并演示如何正确有效地使用它们。 async/await 的好处async/await 给我们带来的最重要的好处是同步编程风格。我们来看一个例子。12345678910// async/awai">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-17T03:22:07.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="async&#x2F;await 同步化异步编程">
+<meta name="twitter:description" content="ES7 引入的 async/await 是 JavaScript 异步编程的一个重大改进，提供了在不阻塞主线程的情况下使用同步代码异步访问资源的能力。在本文中，我们将从不同的角度探索 async/await，并演示如何正确有效地使用它们。 async/await 的好处async/await 给我们带来的最重要的好处是同步编程风格。我们来看一个例子。12345678910// async/awai">
+  
+    <link rel="alternate" href="/atom.xml" title="LiuRun&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Liu Run</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item" href="/about">
+                专栏
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                专栏
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>async/await 同步化异步编程</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="/images/use_img.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> LiuRun</span>
+                <span class="post-date sub-title">at: 2019-01-17</span>
+            </div>
+            
+                <div>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <p>ES7 引入的 async/await 是 JavaScript 异步编程的一个重大改进，提供了在不阻塞主线程的情况下使用同步代码异步访问资源的能力。在本文中，我们将从不同的角度探索 async/await，并演示如何正确有效地使用它们。</p>
+<h3 id="async-await-的好处"><a href="#async-await-的好处" class="headerlink" title="async/await 的好处"></a>async/await 的好处</h3><p>async/await 给我们带来的最重要的好处是同步编程风格。我们来看一个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// async/await</span><br><span class="line">async getBooksByAuthorWithAwait(authorId) &#123;</span><br><span class="line">  const books = await bookModel.fetchAll();</span><br><span class="line">  return books.filter(b =&gt; b.authorId === authorId);</span><br><span class="line">&#125;</span><br><span class="line">// promise</span><br><span class="line">getBooksByAuthorWithPromise(authorId) &#123;</span><br><span class="line">  return bookModel.fetchAll()</span><br><span class="line">    .then(books =&gt; books.filter(b =&gt; b.authorId === authorId));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>很显然，async/await 比 promise 更容易理解。如果忽略掉 await 关键字，代码看起来与其他任意一门同步语言一样（如 Python）。</p>
+<p>除了可读性，async/await 还对浏览器提供了原生支持。目前所有的主流浏览器都完全支持异步功能。</p>
+<p>原生支持意味着不需要编译代码。更重要的是，它调试起来很方便。在函数入口设置断点并执行跳过 await 行之后，调试器会在 bookModel.fetchAll() 执行时暂停一会儿，然后移动到下一行（也就是.filter）！这比使用 promise 要容易调试得多，因为你必须在.filter 这一行设置另一个断点。</p>
+<p>另一个好处是 async 关键字，尽管看起来不是很明显。它声明 getBooksByAuthorWithAwait() 函数的返回值是一个 promise，因此调用者可以安全地调用 getBooksByAuthorWithAwait().then(…) 或 await getBooksByAuthorWithAwait()。比如像下面这段代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">getBooksByAuthorWithPromise(authorId) &#123;</span><br><span class="line">  if (!authorId) &#123;</span><br><span class="line">    return null;</span><br><span class="line">  &#125;</span><br><span class="line">  return bookModel.fetchAll()</span><br><span class="line">    .then(books =&gt; books.filter(b =&gt; b.authorId === authorId));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的代码中，getBooksByAuthorWithPromise 可能返回一个 promise（正常情况）或 null（异常情况），在这种情况下，调用者无法安全地调用.then()。而如果使用 async 声明，则不会出现这种情况。</p>
+<h3 id="async-await-可能会引起误解"><a href="#async-await-可能会引起误解" class="headerlink" title="async/await 可能会引起误解"></a>async/await 可能会引起误解</h3><p>有些文章将 async/await 与 promise 进行了比较，并声称它是 JavaScript 异步编程演变的下一代，但我非常不同意这一观点。async/await 是一种改进，但它不过是一种语法糖，它不会完全改变我们的编程风格。</p>
+<p>从本质上讲，异步函数仍然是 promise。在正确使用异步函数之前，你必须了解 promise，更糟糕的是，大部分时间需要同时使用 promise 和异步函数。</p>
+<p>考虑上例中的 getBooksByAuthorWithAwait() 和 getBooksByAuthorWithPromises() 函数。请注意，它们不仅功能相同，接口也是完全一样的！</p>
+<p>这意味着如果直接调用 getBooksByAuthorWithAwait()，它将返回一个 promise。</p>
+<p>不过这不一定是件坏事。只是 await 会给人一种感觉：“它可以将异步函数转换为同步函数”。但这实际上是错误的。</p>
+<h3 id="async-await-的陷阱"><a href="#async-await-的陷阱" class="headerlink" title="async/await 的陷阱"></a>async/await 的陷阱</h3><h4 id="太过串行化"><a href="#太过串行化" class="headerlink" title="太过串行化"></a>太过串行化</h4><p>虽然 await 可以让你的代码看起来像是同步的，但请记住，它们仍然是异步的，要避免太过串行化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">async getBooksAndAuthor(authorId) &#123;</span><br><span class="line">  const books = await bookModel.fetchAll();</span><br><span class="line">  const author = await authorModel.fetch(authorId);</span><br><span class="line">  return &#123;</span><br><span class="line">    author,</span><br><span class="line">    books: books.filter(book =&gt; book.authorId === authorId),</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码在逻辑上看起来很正确，但这样做其实是不对的。</p>
+<ul>
+<li>await bookModel.fetchAll() 将等到 fetchAll() 返回。</li>
+<li>然后 await authorModel.fetch(authorId) 将被调用。</li>
+</ul>
+<p>PS：注意，authorModel.fetch(authorId) 不依赖 bookModel.fetchAll() 的结果，事实上它们可以并行调用！然而，因为在这里使用了 await，两个调用变成串行的，总的执行时间将比并行版本要长得多。</p>
+<p>正确的方法应该是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">async getBooksAndAuthor(authorId) &#123;</span><br><span class="line">  const bookPromise = bookModel.fetchAll();</span><br><span class="line">  const authorPromise = authorModel.fetch(authorId);</span><br><span class="line">  const book = await bookPromise;</span><br><span class="line">  const author = await authorPromise;</span><br><span class="line">  return &#123;</span><br><span class="line">    author,</span><br><span class="line">    books: books.filter(book =&gt; book.authorId === authorId),</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或者更糟糕的是，如果你想要逐个获取物品清单，你必须使用 promise：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">async getAuthors(authorIds) &#123;</span><br><span class="line">  // WRONG, this will cause sequential calls</span><br><span class="line">  // const authors = _.map(</span><br><span class="line">  //   authorIds,</span><br><span class="line">  //   id =&gt; await authorModel.fetch(id));</span><br><span class="line">// CORRECT</span><br><span class="line">  const promises = _.map(authorIds, id =&gt; authorModel.fetch(id));</span><br><span class="line">  const authors = await Promise.all(promises);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总之，你仍然需要将流程视为异步的，然后使用 await 写出同步的代码。在复杂的流程中，直接使用 promise 可能更方便。</p>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>在使用 promise 时，异步函数有两个可能的返回值。对于正常情况，可以使用.then()，而对于异常情况，则使用.catch()。不过在使用 async/await 时，错误处理可能会变得有点蹊跷。</p>
+<h4 id="try…catch"><a href="#try…catch" class="headerlink" title="try…catch"></a>try…catch</h4><p>最标准的（也是我推荐的）方法是使用 try…catch 语句。在调用 await 函数时，如果出现非正常状况就会跑出异常。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class BookModel &#123;</span><br><span class="line">  fetchAll() &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      window.setTimeout(() =&gt; &#123; reject(&#123;&apos;error&apos;: 400&#125;) &#125;, 1000);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// async/await</span><br><span class="line">async getBooksByAuthorWithAwait(authorId) &#123;</span><br><span class="line">try &#123;</span><br><span class="line">  const books = await bookModel.fetchAll();</span><br><span class="line">&#125; catch (error) &#123;</span><br><span class="line">  console.log(error);    // &#123; &quot;error&quot;: 400 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在捕捉到异常之后，我们有几种方法来处理它：</p>
+<ul>
+<li></li>
+<li>处理异常，并返回一个正常值。（不在 catch 块中使用任何 return 语句相当于使用 return undefined，undefined 也是一个正常值。）</li>
+<li>如果你想让调用者来处理它，就将它抛出。你可以直接抛出错误对象，比如 throw error，这样就可以在 promise 链中使用 await getBooksByAuthorWithAwait() 函数（也就是像 getBooksByAuthorWithAwait().then(…).catch(error =&gt; …) 这样调用它）。或者你可以将错误包装成 Error 对象，比如 throw new Error(error)，那么在控制台中显示这个错误时它将给出完整的堆栈跟踪信息。</li>
+<li>拒绝它，比如 return Promise.reject(error)。这相当于 throw error，因此不推荐使用。</li>
+</ul>
+<p>这种方法也有一个缺陷。由于 try…catch 会捕获代码块中的每个异常，所以通常不会被 promise 捕获的异常也会被捕获到。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class BookModel &#123;</span><br><span class="line">  fetchAll() &#123;</span><br><span class="line">    cb();    // note `cb` is undefined and will result an exception</span><br><span class="line">    return fetch(&apos;/books&apos;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">try &#123;</span><br><span class="line">  bookModel.fetchAll();</span><br><span class="line">&#125; catch(error) &#123;</span><br><span class="line">  console.log(error);  // This will print &quot;cb is not defined&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行此代码，你将会在控制台看到“ReferenceError：cb is not defined”错误，消息的颜色是黑色的。错误消息是通过 console.log() 输出的，而不是 JavaScript 本身。有时候这可能是致命的：如果 BookModel 被包含在一系列函数调用中，并且其中一个调用把错误吞噬掉了，那么找到这样的 undefined 错误将非常困难。</p>
+<h4 id="让函数返回两个值"><a href="#让函数返回两个值" class="headerlink" title="让函数返回两个值"></a>让函数返回两个值</h4><p>错误处理的另一种方式是受到了 Go 语言启发，它允许异步函数返回错误和结果。</p>
+<p>简单地说，我们可以像这样使用异步函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[err, user] = await to(UserModel.findById(1));</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用-catch"><a href="#使用-catch" class="headerlink" title="使用.catch"></a>使用.catch</h3><p>我们要介绍的最后一种方法是继续使用.catch()。<br>回想一下 await 的功能：它将等待 promise 完成工作。另外，promise.catch() 也会返回一个 promise！所以我们可以这样进行错误处理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// books === undefined if error happens,</span><br><span class="line">// since nothing returned in the catch statement</span><br><span class="line">let books = await bookModel.fetchAll()</span><br><span class="line">  .catch((error) =&gt; &#123; console.log(error); &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这种方法有两个小问题：</p>
+<ul>
+<li></li>
+<li>它是 promise 和异步函数的混合体。你仍然需要了解 promise 的工作原理才能看懂这段代码。</li>
+<li>错误处理出现在普通代码逻辑之前，这样不直观。</li>
+</ul>
+<h3 id="技术无罪，分享有情"><a href="#技术无罪，分享有情" class="headerlink" title="技术无罪，分享有情"></a>技术无罪，分享有情</h3><p>感谢 <a href="https://mp.weixin.qq.com/s/WJUwKgtl0uAJJfiU9alL3g" target="_blank" rel="noopener">无明</a></p>
+
+        </div>
+        <div class="post-reply">
+            
+            <div class="vcomments"></div>
+
+            <!--Leancloud 操作库:-->
+            <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+            <!--Valine 的核心代码库:-->
+            <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+            <script>
+                new Valine({
+                    el: '.vcomments',
+                    appId: "cUp1F343i6H7veqjhDDOOG7s-gzGzoHsz",
+                    appKey: "cBN1k4HFtguRAnAlQTW4Kcua",
+                    placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊! 评论我',
+                    enable: true,
+                    notify: false,
+                    verify: false,
+                    pageSize: 10
+                })
+            </script>
+            
+
+            
+
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © Liu Run 2019
+        <br>
+        <!--Work Email: run.liu01@hand-china.com-->
+        <br>
+        Thanks for Theme by <a href="http://haojen.github.io/">Haojen Ma</a>
+        <br>
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>
