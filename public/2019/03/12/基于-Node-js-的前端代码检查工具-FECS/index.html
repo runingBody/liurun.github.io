@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>基于 Node.js 的前端代码检查工具-FECS | LiuRun&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="精选一语： I’m looking forward to the rest of my life every time at the thought of spending the rest life with you. 为了统一团队的代码规范，除了一纸规范说明之外，还需要引入工具进行限制。虽说工具并不能完全实现规范中的规则，但至少能够在一定程度上缓解代码不统一的局面。 相对于后端，前端代码规范的">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 Node.js 的前端代码检查工具-FECS">
+<meta property="og:url" content="http://yoursite.com/2019/03/12/基于-Node-js-的前端代码检查工具-FECS/index.html">
+<meta property="og:site_name" content="LiuRun&#39;s Blog">
+<meta property="og:description" content="精选一语： I’m looking forward to the rest of my life every time at the thought of spending the rest life with you. 为了统一团队的代码规范，除了一纸规范说明之外，还需要引入工具进行限制。虽说工具并不能完全实现规范中的规则，但至少能够在一定程度上缓解代码不统一的局面。 相对于后端，前端代码规范的">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-12T16:03:10.286Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于 Node.js 的前端代码检查工具-FECS">
+<meta name="twitter:description" content="精选一语： I’m looking forward to the rest of my life every time at the thought of spending the rest life with you. 为了统一团队的代码规范，除了一纸规范说明之外，还需要引入工具进行限制。虽说工具并不能完全实现规范中的规则，但至少能够在一定程度上缓解代码不统一的局面。 相对于后端，前端代码规范的">
+  
+    <link rel="alternate" href="/atom.xml" title="LiuRun&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Liu Run</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item" href="/about">
+                专栏
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                专栏
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+    .container .content .highlight {
+        overflow-x: scroll;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>基于 Node.js 的前端代码检查工具-FECS</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="/images/use_img.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> LiuRun</span>
+                <span class="post-date sub-title">at: 2019-03-12</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/前端/">前端</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <p>精选一语： I’m looking forward to the rest of my life every time at the thought of spending the rest life with you.</p>
+<p>为了统一团队的代码规范，除了一纸规范说明之外，还需要引入工具进行限制。虽说工具并不能完全实现规范中的规则，但至少能够在一定程度上缓解代码不统一的局面。</p>
+<p>相对于后端，前端代码规范的质量检查涉及到HTML, CSS，Javascript ，如今还涉及到SCSS，ES5，JSX,  React，Vue，Angular等，更是复杂。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">All code in any code-base should look like a single person typed it, no matter how many people contributed. — idiomatic.js</span><br><span class="line"></span><br><span class="line">在任一个代码库中，不管是多少人协同开发，所有的代码都应该看起来像是一个人写的。- idiomatic.js</span><br></pre></td></tr></table></figure>
+<p>今天要讲的不是代码规范，关于代码规范网上已经有了非常好的实践和各大公司公开的实践指南，大家可自行查询。 例如: <a href="https://zoomzhao.github.io/code-guide/" target="_blank" rel="noopener">code-guide chinese</a></p>
+<h2 id="FECS"><a href="#FECS" class="headerlink" title="FECS"></a>FECS</h2><p>fecs<a href="http://fecs.baidu.com/demo" target="_blank" rel="noopener">在线体验</a>，代码检查/格式化，从未如此简单！</p>
+<p>FECS 是以百度前端代码规范为目标的基于 Node.js 的前端代码风格检测工具，套件内包括了 htmlcs、csshint、lesslint 和 jformatter 等工具。</p>
+<p>因此，fecs 不仅能检查 HTML/CSS/LESS/JavaScript 代码的规范问题，而且还能修复代码的规范问题。</p>
+<p>需要说明的是，FECS 目前只支持 HTML/CSS/LESS/JavaScript 四种文件和语法的检测。</p>
+<h3 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h3><p>Javascript 方面 FECS 采用了 eslint 检测引擎，因此你在自定义规则的时候可以参考 <a href="https://github.com/AlloyTeam/eslint-config-alloy" target="_blank" rel="noopener">esling</a> 的文档进行相关配置。FECS 只是在 eslint 基础之上针对百度的代码规范作了新的规则实现或调整。详细内容见 <a href="https://github.com/ecomfe/fecs/wiki/FECSRules" target="_blank" rel="noopener">FECS</a> 自有规则</p>
+<p>这里推荐一个比较齐全的自定义规则的链接：<a href="https://www.cnblogs.com/imwtr/p/9189414.html" target="_blank" rel="noopener">自定义EsLint校验规程</a></p>
+<h3 id="CSS-LESS-HTML"><a href="#CSS-LESS-HTML" class="headerlink" title="CSS/LESS/HTML"></a>CSS/LESS/HTML</h3><p>CSS 的 linter 是使用了内部优化过的 csshint。LESS 和 HTML 方面则分别使用了 lesslint 和 htmlcs。</p>
+<h2 id="FECS-的安装及其使用"><a href="#FECS-的安装及其使用" class="headerlink" title="FECS 的安装及其使用"></a>FECS 的安装及其使用</h2><h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ [sudo] npm install fecs -g</span><br></pre></td></tr></table></figure>
+<h3 id="Use"><a href="#Use" class="headerlink" title="Use"></a>Use</h3><p>使用方式可使用以下命令查看:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ fecs --help</span><br><span class="line">$ fecs check --help</span><br><span class="line">$ fecs format --help</span><br></pre></td></tr></table></figure>
+<p>详情请查看官方文档: <a href="https://github.com/ecomfe/fecs/wiki/CLI" target="_blank" rel="noopener">FECS 命令参数</a></p>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips:"></a>Tips:</h3><p>FECS 的错误报告默认为英文格式，由各 linter 直接提供。FECS 根据百度前端代码规范，作了一次影射转换，通过指定 reporter 为 baidu 可以看到中文的报告输出效果，对于某些比较抽象的描述，会同时在括号内提供英文原文补充说明。</p>
+<p>例如，你可以这样用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fecs check --reporter=baidu</span><br></pre></td></tr></table></figure></p>
+<p>或者，更直接一点，直接添加一个 alias，使其在执行 fecs check 命令时默认为中文输出。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias fecs=&apos;fecs --reporter=baidu&apos;</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        <div class="post-reply">
+            
+            <div class="vcomments"></div>
+
+            <!--Leancloud 操作库:-->
+            <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+            <!--Valine 的核心代码库:-->
+            <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+            <script>
+                new Valine({
+                    el: '.vcomments',
+                    appId: "cUp1F343i6H7veqjhDDOOG7s-gzGzoHsz",
+                    appKey: "cBN1k4HFtguRAnAlQTW4Kcua",
+                    placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊! 评论我',
+                    enable: true,
+                    notify: false,
+                    verify: false,
+                    pageSize: 10
+                })
+            </script>
+            
+
+            
+
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © Liu Run 2019
+        <br>
+        <!--Work Email: run.liu01@hand-china.com-->
+        <br>
+        Thanks for Theme by <a href="http://haojen.github.io/">Haojen Ma</a>
+        <br>
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>
