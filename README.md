@@ -1,6 +1,9 @@
 # Blog_Source
 Hexo博客系统源代码
 
+清楚缓存
+hexo clean
+
 genenator 加载模板生成器
 hexo g
 
