@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>初尝前端架构之路(一) | LiuRun&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="开场小白：   前端架构之路，路漫漫其修远兮。该如何确定自己前行的方向，该如果把控每一步的轻重缓急。对于自己的前端架构之路，充满了期待和些许的迷茫。    三人行必有我师焉！遵循前辈的脚印，是自己行进前端架构之路的指向标。 所以，前端架构的要点有哪些点呢自我总结如下：  学习前端框架 学习前端工程化 学习前端性能优化 学习前端完全领域防范 架构演进(研究方向包括前端数据保护、前端代码混淆、前端执行">
+<meta name="keywords" content="前端,架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初尝前端架构之路(一)">
+<meta property="og:url" content="http://yoursite.com/2019/04/20/初尝前端架构之路-一/index.html">
+<meta property="og:site_name" content="LiuRun&#39;s Blog">
+<meta property="og:description" content="开场小白：   前端架构之路，路漫漫其修远兮。该如何确定自己前行的方向，该如果把控每一步的轻重缓急。对于自己的前端架构之路，充满了期待和些许的迷茫。    三人行必有我师焉！遵循前辈的脚印，是自己行进前端架构之路的指向标。 所以，前端架构的要点有哪些点呢自我总结如下：  学习前端框架 学习前端工程化 学习前端性能优化 学习前端完全领域防范 架构演进(研究方向包括前端数据保护、前端代码混淆、前端执行">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-01T08:54:43.845Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初尝前端架构之路(一)">
+<meta name="twitter:description" content="开场小白：   前端架构之路，路漫漫其修远兮。该如何确定自己前行的方向，该如果把控每一步的轻重缓急。对于自己的前端架构之路，充满了期待和些许的迷茫。    三人行必有我师焉！遵循前辈的脚印，是自己行进前端架构之路的指向标。 所以，前端架构的要点有哪些点呢自我总结如下：  学习前端框架 学习前端工程化 学习前端性能优化 学习前端完全领域防范 架构演进(研究方向包括前端数据保护、前端代码混淆、前端执行">
+  
+    <link rel="alternate" href="/atom.xml" title="LiuRun&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Liu Run</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item" href="/about">
+                专栏
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                专栏
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+    .container .content .highlight {
+        overflow-x: scroll;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>初尝前端架构之路(一)</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="/images/use_img.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> LiuRun</span>
+                <span class="post-date sub-title">at: 2019-04-20</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/前端/">前端</a>
+                    
+                         <a class="tag is-post-tag" href="/tags/架构/">架构</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <h3 id="开场小白："><a href="#开场小白：" class="headerlink" title="开场小白："></a>开场小白：</h3><p>   前端架构之路，路漫漫其修远兮。该如何确定自己前行的方向，该如果把控每一步的轻重缓急。对于自己的前端架构之路，充满了期待和些许的迷茫。</p>
+<p>   三人行必有我师焉！遵循前辈的脚印，是自己行进前端架构之路的指向标。</p>
+<h3 id="所以，前端架构的要点有哪些点呢"><a href="#所以，前端架构的要点有哪些点呢" class="headerlink" title="所以，前端架构的要点有哪些点呢"></a>所以，前端架构的要点有哪些点呢</h3><p>自我总结如下：</p>
+<ul>
+<li>学习前端框架</li>
+<li>学习前端工程化</li>
+<li>学习前端性能优化</li>
+<li>学习前端完全领域防范</li>
+<li>架构演进(研究方向包括前端数据保护、前端代码混淆、前端执行环境监测等）</li>
+</ul>
+<h3 id="前端安全领域防范"><a href="#前端安全领域防范" class="headerlink" title="前端安全领域防范"></a>前端安全领域防范</h3><p>随着互联网的发达，各种 Web 端的应用功能越来越多，架构设计也变得越来越复杂。但是随着应用功能越来越多的同时，随之而来的就是各种网络安全的问题。如何保护自家产品不被黑客攻击？用户信息不被黑客获取？作为前端开发行业的我们也逃不开这个问题。所以有必要简单了解一下Web 前端安全以及如何防范。</p>
+<p>“安全”是个很大的话题，各种安全问题的类型也是种类繁多。如果我们把安全问题按照所发生的区域来进行分类的话，那么所有发生在后端服务器、应用、服务当中的安全问题就是“后端安全问题”，所有发生在浏览器、单页面应用、Web 页面当中的安全问题则算是“前端安全问题”。当我们下面在谈论“前端安全问题”的时候，我们说的是发生在浏览器、前端应用当中，或者通常由前端开发工程师来对其进行修复的安全问题。</p>
+<ul>
+<li>“研究如何保护前端数据，增加前端代码逆向的难度，以及对恶意的执行环境进行检测，最终形成一个立体化的业务安全防御体系。” </li>
+</ul>
+<p>::: hljs-right</p>
+<p> —腾讯 高级前端工程师/刘忠正</p>
+<p>:::</p>
+<h4 id="前端安全主要会面临哪些问题？有什么样的技术手段进行对抗呢？"><a href="#前端安全主要会面临哪些问题？有什么样的技术手段进行对抗呢？" class="headerlink" title="前端安全主要会面临哪些问题？有什么样的技术手段进行对抗呢？"></a>前端安全主要会面临哪些问题？有什么样的技术手段进行对抗呢？</h4><p>众所周知通用前端会面临诸如 XSS、CSRF 这样的安全风险，这种安全问题通常危害很大，需要研发同学有一些安全意识去防范。当然很多流程上的缺陷也会带来业务安全问题，但这不属于前端需要重点关注的领域。在业务安全前端领域，爬虫、脚本批量操作才是我们面临最大的问题，我们需要去识别当前操作是正常人还是机器行为。常规的方式是用图形验证码，也就是做图灵测试，但在机器学习盛行的大背景下，图形验证码简直不堪一击，现阶段主流的方案是通过收集用户行为和环境信息构建出多维模型对用户进行精准识别，具体到前端则是采集各种模型需要的数据，并通过加密、混淆、虚拟机等方式保护前端代码不被逆向或篡改。</p>
+<h4 id="前端代码保护有哪些方式"><a href="#前端代码保护有哪些方式" class="headerlink" title="前端代码保护有哪些方式"></a>前端代码保护有哪些方式</h4><p>首先需要给大家一个客观的认识，类似 Uglify 的代码压缩并不是很好的代码保护手段，因此普遍认为代码压缩不属于代码保护的一部分，代码压缩只是一种代码优化。前端代码保护大致有两个流派，一个是以语法树变换为基础的混淆保护，一个是以构建私有执行环境为思路的虚拟机保护，谷歌则属于后者。代码混淆的效果因混淆器的负责程度而不同，基础级别的混淆器混淆出来的代码也很容易被逆向，而虚拟机保护的抗逆向效果好，其原理是在 JavaScript 的执行环境之上再设计构建一个虚拟机，所有原有业务逻辑的 JavaScript 代码均转换为该虚拟机可识别的字节码，复杂度较高效果好。</p>
+<p>主要技术专攻点：</p>
+<ol>
+<li>业务安全对抗背景<br>（1） 业务安全背景<br>（2）恶意分类<br>（3）图像对抗的脆弱性</li>
+<li>前端解决方案<br>（1）前端数据保护<br>（2）前端代码保护<br>（3）字面量混淆<br>（4）流程混淆<br>（5）调试检测</li>
+<li>执行环境检测<br>  Node.js 环境检测</li>
+<li>模拟器环境检测<br> 动态混淆技术</li>
+</ol>
+
+        </div>
+        <div class="post-reply">
+            
+            <div class="vcomments"></div>
+
+            <!--Leancloud 操作库:-->
+            <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+            <!--Valine 的核心代码库:-->
+            <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+            <script>
+                new Valine({
+                    el: '.vcomments',
+                    appId: "cUp1F343i6H7veqjhDDOOG7s-gzGzoHsz",
+                    appKey: "cBN1k4HFtguRAnAlQTW4Kcua",
+                    placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊! 评论我',
+                    enable: true,
+                    notify: false,
+                    verify: false,
+                    pageSize: 10
+                })
+            </script>
+            
+
+            
+
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © Liu Run 2019
+        <br>
+        <!--Work Email: run.liu01@hand-china.com-->
+        <br>
+        Thanks for Theme by <a href="http://haojen.github.io/">Haojen Ma</a>
+        <br>
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

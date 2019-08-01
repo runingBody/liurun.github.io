@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>React- Native 小小鸟觅食之路 | LiuRun&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="每日一言：与其败笔，宁愿一死。历经苦难而不厌，此乃阿修罗之道。一. 技术要点1231.create-react-app2.create-react-native-app 二.技术概要（技术比较、简单使用规范、示例）1.yarn1234567891011121314compare: 相比与npm，yarn（package.josn）在下载项目依赖时更优的版本确定性的和它的并行加载方式让下载速度有的质">
+<meta name="keywords" content="前端,react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React- Native 小小鸟觅食之路">
+<meta property="og:url" content="http://yoursite.com/2018/12/27/React-Native-小小鸟觅食之路/index.html">
+<meta property="og:site_name" content="LiuRun&#39;s Blog">
+<meta property="og:description" content="每日一言：与其败笔，宁愿一死。历经苦难而不厌，此乃阿修罗之道。一. 技术要点1231.create-react-app2.create-react-native-app 二.技术概要（技术比较、简单使用规范、示例）1.yarn1234567891011121314compare: 相比与npm，yarn（package.josn）在下载项目依赖时更优的版本确定性的和它的并行加载方式让下载速度有的质">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-01T08:54:43.844Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React- Native 小小鸟觅食之路">
+<meta name="twitter:description" content="每日一言：与其败笔，宁愿一死。历经苦难而不厌，此乃阿修罗之道。一. 技术要点1231.create-react-app2.create-react-native-app 二.技术概要（技术比较、简单使用规范、示例）1.yarn1234567891011121314compare: 相比与npm，yarn（package.josn）在下载项目依赖时更优的版本确定性的和它的并行加载方式让下载速度有的质">
+  
+    <link rel="alternate" href="/atom.xml" title="LiuRun&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Liu Run</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item" href="/about">
+                专栏
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                专栏
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+    .container .content .highlight {
+        overflow-x: scroll;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>React- Native 小小鸟觅食之路</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="/images/use_img.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> LiuRun</span>
+                <span class="post-date sub-title">at: 2018-12-27</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/前端/">前端</a>
+                    
+                         <a class="tag is-post-tag" href="/tags/react/">react</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <h3 id="每日一言：与其败笔，宁愿一死。历经苦难而不厌，此乃阿修罗之道。"><a href="#每日一言：与其败笔，宁愿一死。历经苦难而不厌，此乃阿修罗之道。" class="headerlink" title="每日一言：与其败笔，宁愿一死。历经苦难而不厌，此乃阿修罗之道。"></a>每日一言：与其败笔，宁愿一死。历经苦难而不厌，此乃阿修罗之道。</h3><h3 id="一-技术要点"><a href="#一-技术要点" class="headerlink" title="一. 技术要点"></a>一. 技术要点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.create-react-app</span><br><span class="line"></span><br><span class="line">2.create-react-native-app</span><br></pre></td></tr></table></figure>
+<h3 id="二-技术概要（技术比较、简单使用规范、示例）"><a href="#二-技术概要（技术比较、简单使用规范、示例）" class="headerlink" title="二.技术概要（技术比较、简单使用规范、示例）"></a>二.技术概要（技术比较、简单使用规范、示例）</h3><h4 id="1-yarn"><a href="#1-yarn" class="headerlink" title="1.yarn"></a>1.yarn</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">compare: 相比与npm，yarn（package.josn）在下载项目依赖时更优的版本确定性的和它的并行加载方式让下载速度有的质的提升。更神奇的是，它可以提供离线本地缓存的方</span><br><span class="line">式来引入包。</span><br><span class="line"></span><br><span class="line"><span class="built_in">command</span>:</span><br><span class="line"></span><br><span class="line">yarn / npm install</span><br><span class="line"></span><br><span class="line">yarn add global &lt;package&gt; / npm install -g &lt;package&gt;</span><br><span class="line"></span><br><span class="line">yarn remove &lt;package&gt; / npm uninstall &lt;package&gt;</span><br><span class="line"></span><br><span class="line">yarn add &lt;package&gt; / npm i &lt;package&gt; --save</span><br><span class="line"></span><br><span class="line">yarn add &lt;package&gt; --dev / npm i &lt;package&gt; --save-dev</span><br></pre></td></tr></table></figure>
+<h4 id="2-npx"><a href="#2-npx" class="headerlink" title="2.npx"></a>2.npx</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="三-开发流程"><a href="#三-开发流程" class="headerlink" title="三.开发流程"></a>三.开发流程</h3><p>1.国内外技术交流，建议使用翻墙软件查看国外优秀的技术文章（鉴于国内相关技术文档太过陈旧==。）</p>
+<p>2.推荐相关优秀的技术连接（如遇链接无法打开的情况，请先翻墙，谢谢配合）</p>
+<p><a href="https://reactjs.org/tutorial/tutorial.html" target="_blank" rel="noopener">https://reactjs.org/tutorial/tutorial.html</a></p>
+<p><a href="https://github.com/facebook/create-react-app#create-react-app-" target="_blank" rel="noopener">https://github.com/facebook/create-react-app#create-react-app-</a></p>
+<h3 id="四-相关附件："><a href="#四-相关附件：" class="headerlink" title="四.相关附件："></a>四.相关附件：</h3><p>1.鉴于一些小伙伴的翻墙之痛，我已分享一些翻墙软件（psiphon.exe），双击运行应用以后，就会自动配置代理服务，一键翻墙。</p>
+<p>psiphon.exe</p>
+<p>链接：<a href="https://pan.baidu.com/s/1u-h7iInqLWFbDVyRIkc1Cg" target="_blank" rel="noopener">https://pan.baidu.com/s/1u-h7iInqLWFbDVyRIkc1Cg</a> 密码：3dym</p>
+<p>2.开发工具包</p>
+<p>yarn</p>
+<p>链接：<a href="https://pan.baidu.com/s/1r1MqRuFUqUgwDc6_X5lsgw" target="_blank" rel="noopener">https://pan.baidu.com/s/1r1MqRuFUqUgwDc6_X5lsgw</a> 密码：7t6p</p>
+<h3 id="五-修行之路"><a href="#五-修行之路" class="headerlink" title="五.修行之路"></a>五.修行之路</h3><p>一.正式进入开发（踩坑阶段）…</p>
+<p>按照<a href="https://github.com/facebook/create-react-app#create-react-app-" target="_blank" rel="noopener">https://github.com/facebook/create-react-app#create-react-app-</a>的官方示例，不禁感叹一声：</p>
+<p>”卧槽 ，原来这么简单，什么webpack、loader、plug和config 都去见鬼吧。“</p>
+<p>其实按照文章说明：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">”You don’t need to install or configure tools like Webpack or Babel.</span><br><span class="line"></span><br><span class="line">They are preconfigured and hidden so that you can focus on the code.</span><br><span class="line"></span><br><span class="line">Just create a project, and you’re good to go.“</span><br></pre></td></tr></table></figure>
+<p>至此，我们不在需要配置繁杂的配置文件，just focus on code! 多么幸福发事儿啊！</p>
+<p>step1: 安装好 yarn ,</p>
+<p>(什么？这是什么东西！来，请看这里<a href="http://geek.csdn.net/news/detail/197339" target="_blank" rel="noopener">http://geek.csdn.net/news/detail/197339</a> ）</p>
+<p>step2: 运行yarn add global npx</p>
+<p>(什么？这是什么东西！来，请看如上链接，或自行google ）</p>
+<p>step3: 运行npx create-react-app myApp,</p>
+<p>见证奇迹的时刻到了:</p>
+<p>下图是我的运行结果：(开心…嘤嘤嘤）</p>
+<p>在之后，我用编辑器，尝试跟新内部代码，热更新正常！</p>
+<p>至此，示例演示完成，各位看官也可以自己去试试啦！</p>
+<p>少公仔也要去继续参研Tutorial: Intro To React.</p>
+<p>文章来自本人知乎: 附属链接<a href="https://zhuanlan.zhihu.com/p/35602360?utm_source=wechat_session&amp;utm_medium=social&amp;from=timeline" target="_blank" rel="noopener">Click here</a></p>
+
+        </div>
+        <div class="post-reply">
+            
+            <div class="vcomments"></div>
+
+            <!--Leancloud 操作库:-->
+            <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+            <!--Valine 的核心代码库:-->
+            <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+            <script>
+                new Valine({
+                    el: '.vcomments',
+                    appId: "cUp1F343i6H7veqjhDDOOG7s-gzGzoHsz",
+                    appKey: "cBN1k4HFtguRAnAlQTW4Kcua",
+                    placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊! 评论我',
+                    enable: true,
+                    notify: false,
+                    verify: false,
+                    pageSize: 10
+                })
+            </script>
+            
+
+            
+
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © Liu Run 2019
+        <br>
+        <!--Work Email: run.liu01@hand-china.com-->
+        <br>
+        Thanks for Theme by <a href="http://haojen.github.io/">Haojen Ma</a>
+        <br>
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

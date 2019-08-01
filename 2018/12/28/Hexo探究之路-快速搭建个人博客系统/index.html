@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>Hexo探究之路-快速搭建个人博客系统 | LiuRun&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="每日一言：“昨晚做了一个很奇怪的梦”一、技术概括1.Hexo 官网是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。何为Markdown,在我的理解是：框架自定义编写模式，并进行特定解析进而转化成静态的HTML文档结构。例如：标签元素写法12hexo写法：#这是文章H1标题 hexo解析成：&amp;lt;h1&amp;gt;这">
+<meta name="keywords" content="Hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo探究之路-快速搭建个人博客系统">
+<meta property="og:url" content="http://yoursite.com/2018/12/28/Hexo探究之路-快速搭建个人博客系统/index.html">
+<meta property="og:site_name" content="LiuRun&#39;s Blog">
+<meta property="og:description" content="每日一言：“昨晚做了一个很奇怪的梦”一、技术概括1.Hexo 官网是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。何为Markdown,在我的理解是：框架自定义编写模式，并进行特定解析进而转化成静态的HTML文档结构。例如：标签元素写法12hexo写法：#这是文章H1标题 hexo解析成：&amp;lt;h1&amp;gt;这">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-01T08:54:43.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo探究之路-快速搭建个人博客系统">
+<meta name="twitter:description" content="每日一言：“昨晚做了一个很奇怪的梦”一、技术概括1.Hexo 官网是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。何为Markdown,在我的理解是：框架自定义编写模式，并进行特定解析进而转化成静态的HTML文档结构。例如：标签元素写法12hexo写法：#这是文章H1标题 hexo解析成：&amp;lt;h1&amp;gt;这">
+  
+    <link rel="alternate" href="/atom.xml" title="LiuRun&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Liu Run</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item" href="/about">
+                专栏
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                专栏
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+    .container .content .highlight {
+        overflow-x: scroll;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>Hexo探究之路-快速搭建个人博客系统</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="/images/use_img.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> LiuRun</span>
+                <span class="post-date sub-title">at: 2018-12-28</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/Hexo/">Hexo</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <h2 id="每日一言：“昨晚做了一个很奇怪的梦”"><a href="#每日一言：“昨晚做了一个很奇怪的梦”" class="headerlink" title="每日一言：“昨晚做了一个很奇怪的梦”"></a>每日一言：“昨晚做了一个很奇怪的梦”</h2><h3 id="一、技术概括"><a href="#一、技术概括" class="headerlink" title="一、技术概括"></a>一、技术概括</h3><h4 id="1-Hexo-官网"><a href="#1-Hexo-官网" class="headerlink" title="1.Hexo 官网"></a>1.Hexo <a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">官网</a></h4><p><em>是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。何为Markdown,在我的理解是：框架自定义编写模式，并进行特定解析进而转化成静态的HTML文档结构。</em><br><em>例如：标签元素写法</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo写法：#这是文章H1标题 </span><br><span class="line">hexo解析成：&lt;h1&gt;这是文章H1标题&lt;/h1&gt;</span><br></pre></td></tr></table></figure></p>
+<p><em>例如：常用字体样式操作</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo写法：*文字斜体</span><br><span class="line">hexo解析成：&lt;i&gt;这是文章标题&lt;/i&gt;(已废弃)</span><br></pre></td></tr></table></figure></p>
+<p><em>例如：代码块</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo写法：` ` `code代码块被反引号闭合包装 ` ` `</span><br><span class="line">hexo解析成：解析为这种样式代码块</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-技术伙伴"><a href="#2-技术伙伴" class="headerlink" title="2.技术伙伴"></a>2.技术伙伴</h3><h4 id="1-git"><a href="#1-git" class="headerlink" title="1.git"></a>1.git</h4><p>Hexo 提供了快速方便的一键部署功能，让您只需一条命令就能将网站部署到服务器上.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></p>
+<p>所以前提是安装git(最新版本为佳），并在全局—config.yml文件中配置部署类型和正确的git地址。<br>Ps: 如果git版本太低，会在验证git账户密码的时候报错，卸载重新安装最新版本git.</p>
+<h4 id="2-node"><a href="#2-node" class="headerlink" title="2.node"></a>2.node</h4><p>执行npm install安装package.json依赖，建议使用yarn命令安装。因为npm在安装依赖的时候可能会导致版本不确定性问题和安装效率问题，而yarn不存在这些问题。</p>
+<h4 id="3-hexo-client客户端"><a href="#3-hexo-client客户端" class="headerlink" title="3.hexo-client客户端"></a>3.hexo-client客户端</h4><p>这里首先感谢“一个爱折腾的码农”提供的快速实现文章发布、修改、部署的客户端应用 <strong><em>Hexo-client</em></strong>. 毕竟我们的重点是在于能时刻、方便的维护我们的博客，而不是去练习Markdown写法。<br>hexo-client客户端使用到<a href="https://github.com/electron/electron" target="_blank" rel="noopener">electron</a>、<a href="https://cn.vuejs.org/" target="_blank" rel="noopener">Vue.js</a>、<a href="https://github.com/SimulatedGREG/electron-vue" target="_blank" rel="noopener">electron-vue</a>、<a href="http://element-cn.eleme.io/#/zh-CN" target="_blank" rel="noopener">element-ui</a>技术编写成的GUI桌面应用。有兴趣的可以研究一下。<br>客户端下载地址：<a href="https://github.com/gaoyoubo/hexo-client" target="_blank" rel="noopener">click here</a></p>
+<h3 id="一、Hexo建站及常用命令"><a href="#一、Hexo建站及常用命令" class="headerlink" title="一、Hexo建站及常用命令"></a>一、Hexo建站及常用命令</h3><h3 id="1-建站"><a href="#1-建站" class="headerlink" title="1.建站"></a>1.建站</h3><p>安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ cd &lt;folder&gt;</span><br><span class="line">$ yarn</span><br></pre></td></tr></table></figure></p>
+<p>新建完成后，生成目录及文件夹如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure></p>
+<p><strong>_config.yml</strong><br>全局配置文件，配置网站基本信息，包括网址、标题、Mate、关键词、部署、主题等。<br><strong>scaffolds</strong><br>Hexo的模板是指在新建的markdown文件中默认填充的内容。<br><strong>source</strong><br>资源文件夹是存放用户资源的地方。除 _posts 文件夹之外（post文件夹存放的是发布的文章）<br><strong>themes</strong><br>Hexo 会根据主题来生成静态页面。</p>
+<h3 id="2-文件部署和域名绑定"><a href="#2-文件部署和域名绑定" class="headerlink" title="2. 文件部署和域名绑定"></a>2. 文件部署和域名绑定</h3><ul>
+<li>第一步：注册域名，例如：<a href="www.liurun.work">www.liurun.work</a>，推荐使用阿里云，便宜又好用。（首购只需1元/年）</li>
+<li>第二部：在项目srouces目录下新建CNAME文件（不要带后缀名），写入注册好的域名，直接写<a href="www.liurun.work">www.liurun.work</a>就好</li>
+<li>第三部：在项目目录下执行<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g </span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Ps: 如果访问域名无效，请确保是否存在一下问题<br>1.git尽量安装最新版本，不然在deploy的时候会报验证错误。<br>2.全局——config.yml配置文件中git地址配置正确。<br>3.检查github确保文件已经push到git仓库（仓库命名规范：liurun.github.io)<br>4.域名成功解析，且已成功进行身法验证。</p>
+
+        </div>
+        <div class="post-reply">
+            
+            <div class="vcomments"></div>
+
+            <!--Leancloud 操作库:-->
+            <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+            <!--Valine 的核心代码库:-->
+            <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+            <script>
+                new Valine({
+                    el: '.vcomments',
+                    appId: "cUp1F343i6H7veqjhDDOOG7s-gzGzoHsz",
+                    appKey: "cBN1k4HFtguRAnAlQTW4Kcua",
+                    placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊! 评论我',
+                    enable: true,
+                    notify: false,
+                    verify: false,
+                    pageSize: 10
+                })
+            </script>
+            
+
+            
+
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © Liu Run 2019
+        <br>
+        <!--Work Email: run.liu01@hand-china.com-->
+        <br>
+        Thanks for Theme by <a href="http://haojen.github.io/">Haojen Ma</a>
+        <br>
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

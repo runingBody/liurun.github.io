@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>LiuRun&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="此臣危急存亡之秋也">
+<meta property="og:type" content="website">
+<meta property="og:title" content="LiuRun&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="LiuRun&#39;s Blog">
+<meta property="og:description" content="此臣危急存亡之秋也">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LiuRun&#39;s Blog">
+<meta name="twitter:description" content="此臣危急存亡之秋也">
+  
+    <link rel="alternate" href="/atom.xml" title="LiuRun&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Liu Run</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item" href="/about">
+                专栏
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                专栏
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <style>
+    .post-hover:hover {
+        box-shadow: inset 0 0 100px #00ff5f5c;
+        transition: box-shadow .2s;
+    }
+
+    .sub-post-container .post-hover:hover h3 {
+        text-decoration: underline gray;
+    }
+
+
+    .primary-item-main {
+        height: 330px;
+        background-size: cover;
+    }
+
+    .primary-container .title,
+    .primary-container .sub-title,
+    .primary-container .post-content-text,
+    .primary-container .date {
+        color: #fff;
+    }
+
+    .post-content-text {
+        color: #f1f1f1!important;
+    }
+
+    .primary-container .post-hover {
+        background: #49d46485;
+    }
+
+    .content-bg-mask {
+        background: rgba(0,0,0,.4);
+    }
+
+</style>
+
+<div style="background: #f5f8f9;">
+    <div id="main-container" class="container" style="padding-top: 20px;">
+        <div class="is-flex main-content justify-center">
+            <section class="column is-9">
+                
+<div class="primary-container content-box is-flex-desktop clear-padding bottom-line" style="margin-bottom: 25px;">
+    <div class="column  is-7-desktop">
+        <a href="/2019/01/16/防喷秘籍：JS代码编写规范/">
+            <div class="full-height post-hover" style="
+                         background-image: url('');
+                         height: 350px;
+                         background-size: cover;
+                         background-repeat: no-repeat;
+                         background-color:#ff3860;
+                         ">
+                    <div class=" is-flex flex-column center content has-text-centered full-height has-padding content-bg-mask">
+                        <h1 class="title text-shadow" style="margin-bottom: 15px;">
+                            防喷秘籍：JS代码编写规范
+                        </h1>
+                        <div>
+                        
+                            `
+                                <span class="tag is-post-tag">Javascript</span>
+                            
+                        
+                        </div>
+                        <p class="post-content-text is-marginless has-padding text-shadow">
+                            现在写代码比以前好多了，代码的格式都有 eslint、prettier、babel(写新版语法) 这些来保证，然而，技术手段再高端都不能解决代码可读性（代码能否被未来的自己和同事看懂）的问题，因为这个问题只有人自己才能解决。
+一、变量相..
+                        </p>
+                        <p class="date text-shadow">2019-01-16</p>
+                        <button class="button is-info is-small" style="background: rgba(255,255,255,.2);">点击阅览</button>
+                    </div>
+            </div>
+        </a>
+    </div>
+    <div class="column is-5 is-hidden-touch" style="padding-left: 0;">
+        <div class="full-height is-flex flex-column justify-space-between" style="min-height: 350px;">
+            
+                
+<a class="post-hover" href="/2019/01/08/Webpack运行机制/" style="height: 48.5%; background-color: #705b59d9">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                Webpack运行机制
+            </h3>
+            
+            
+            <span class="tag is-post-tag">Webpack</span>
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                目前，几乎所有业务的开发构建都会用到 webpack 。的确，作为模块加载和打包神器，只需配置几..
+            </p>
+            <p class="date text-shadow is-marginless">2019-01-08</p>
+        </div>
+    </div>
+</a>
+            
+            
+                
+<a class="post-hover" href="/2019/01/04/简单了解何为前端监控/" style="height: 48.5%; background-color: #705b59d9">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                简单了解何为前端监控
+            </h3>
+            
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                每日一言：顾客至上，流量为王。如今在在线上项目中,需要统计产品中用户行为和使用情况，从而可以从用..
+            </p>
+            <p class="date text-shadow is-marginless">2019-01-04</p>
+        </div>
+    </div>
+</a>
+            
+        </div>
+    </div>
+    <div class="column is-12 is-hidden-desktop">
+        
+        
+<a class="post-hover" href="/2019/01/08/Webpack运行机制/" style="height: 48.5%; background-color: #705b59d9">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                Webpack运行机制
+            </h3>
+            
+            
+            <span class="tag is-post-tag">Webpack</span>
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                目前，几乎所有业务的开发构建都会用到 webpack 。的确，作为模块加载和打包神器，只需配置几..
+            </p>
+            <p class="date text-shadow is-marginless">2019-01-08</p>
+        </div>
+    </div>
+</a>
+        
+        
+        
+<a class="post-hover" href="/2019/01/04/简单了解何为前端监控/" style="height: 48.5%; background-color: #705b59d9">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                简单了解何为前端监控
+            </h3>
+            
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                每日一言：顾客至上，流量为王。如今在在线上项目中,需要统计产品中用户行为和使用情况，从而可以从用..
+            </p>
+            <p class="date text-shadow is-marginless">2019-01-04</p>
+        </div>
+    </div>
+</a>
+        
+    </div>
+</div>
+
+                    
+                    
+                
+                    
+                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2019/01/08/Webpack运行机制/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>Webpack运行机制</h3>
+                                        
+                                        <p>
+                                            
+                                                <span class="tag is-post-tag">Webpack</span>
+                                            
+                                        </p>
+                                        <p>
+                                            目前，几乎所有业务的开发构建都会用到 webpack 。的确，作为模块加载和打包神器，只需配置几个文件，加载各种 loader 就可以享受无痛流程化开发。但对于 webpack 这样一个复杂度较高的插件集合，它的整体流程及思想对我们来说还是很透明的。那么接下来我会带你了解 webpack 这样一个构建黑盒，首先来谈谈它的流程。
+webpack.confi..
+                                        </p>
+                                        <p>2019-01-08</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+                    
+                
+                    
+                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2019/01/04/简单了解何为前端监控/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>简单了解何为前端监控</h3>
+                                        
+                                        <p>
+                                            
+                                        </p>
+                                        <p>
+                                            每日一言：顾客至上，流量为王。如今在在线上项目中,需要统计产品中用户行为和使用情况，从而可以从用户和产品的角度去了解用户群体，从而升级和迭代产品，使其更加贴近用户。用户行为数据可以通过前端数据监控的方式获得，除此之外，前端还需要实现性能监控和异常监控。性能监控包括首屏加载时间、白屏时间、http请求时间和http响应时间。异常监控包括前端脚本执行报错等。..
+                                        </p>
+                                        <p>2019-01-04</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+                    
+                
+                    
+                        <div class="content-box  " style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2018/12/29/Lodash常用方法总结/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>Lodash常用方法总结</h3>
+                                        
+                                        <p>
+                                            
+                                        </p>
+                                        <p>
+                                            一、lodash简介Lodash是一个著名的javascript原生库，不需要引入其他第三方依赖。是一个意在提高开发者效率,提高JS原生方法性能的JS库。其内置（封装）好了很多高级的适用于常用数据结构（包含数组、对象、字符串、日期等）的处理方法。只需一个简单的方法名,直接调用就行了。
+举个简单的例子：copy一个Js对象123456789//原生方法va..
+                                        </p>
+                                        <p>2018-12-29</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+                    
+                
+                    
+                        <div class="content-box  " style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2018/12/28/Webpack入门教程/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                    <div class="column is-4-desktop is-5-tablet post-avatar is-hidden-mobile" style="margin: 10px; background-size: cover;background-image: url('...')">
+                                    </div>
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>Webpack入门教程</h3>
+                                        
+                                        <p>
+                                            
+                                                <span class="tag is-post-tag">Webpack</span>
+                                            
+                                        </p>
+                                        <p>
+                                            配合一个完整的Demo快速入门、学习Webpack快速了解的几个基本概念mode 开发模式webpack 提供 mode 配置选项，配置 webpack 相应模式的内置优化。1234// webpack.production.config.jsmodule.exports = &#123;+  mode: &apos;production&apos;,&..
+                                        </p>
+                                        <p>2018-12-28</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+                    
+                
+                    
+                        <div class="content-box  " style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2018/12/28/前端打包性能优化-一/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>前端打包性能优化(一)</h3>
+                                        
+                                        <p>
+                                            
+                                        </p>
+                                        <p>
+                                            每日一言：：“念天地之悠悠 独怆然而泪下”在实际项目开发中，随着代码量的骤增，项目后期打包进程很慢，导致开发效率被影响。这时候我们就不得不重视到前端打包性能的优化问题了。
+已实际的项目开发为例：
+打包优化的步骤主要分为三步：第一步为：增加HappyPack进程配置数；第二步为：使用ParallelUglifyPlugin开启多进程压缩JS文件；第三步为：..
+                                        </p>
+                                        <p>2018-12-28</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+                    
+                
+                    
+                        <div class="content-box  " style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2018/12/28/Hexo探究之路-快速搭建个人博客系统/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>Hexo探究之路-快速搭建个人博客系统</h3>
+                                        
+                                        <p>
+                                            
+                                                <span class="tag is-post-tag">Hexo</span>
+                                            
+                                        </p>
+                                        <p>
+                                            每日一言：“昨晚做了一个很奇怪的梦”一、技术概括1.Hexo 官网是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。何为Markdown,在我的理解是：框架自定义编写模式，并进行特定解析进而转化成静态的HTML文档结构。例如：标签元素写法12hexo写法：#这是文章H1..
+                                        </p>
+                                        <p>2018-12-28</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+                    
+                
+                    
+                        <div class="content-box  " style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2018/12/27/React-Native-小小鸟觅食之路/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>React- Native 小小鸟觅食之路</h3>
+                                        
+                                        <p>
+                                            
+                                                <span class="tag is-post-tag">前端</span>
+                                            
+                                                <span class="tag is-post-tag">react</span>
+                                            
+                                        </p>
+                                        <p>
+                                            每日一言：与其败笔，宁愿一死。历经苦难而不厌，此乃阿修罗之道。一. 技术要点1231.create-react-app2.create-react-native-app
+二.技术概要（技术比较、简单使用规范、示例）1.yarn1234567891011121314compare: 相比与npm，yarn（package.josn）在下载项目依赖时更优的版..
+                                        </p>
+                                        <p>2018-12-27</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+                    
+                
+                <!--翻頁-->
+                <nav class="pagination is-flex" style="justify-content: flex-end">
+                    
+                        
+                            <a class="pagination-previous" href="/">Previous</a>
+                        
+                        
+                    
+                </nav>
+            </section>
+            
+                <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<style>
+    /*user info start*/
+    .user-info {
+        padding: 15px 0 0;
+    }
+
+    .user-info .avatar {
+        width: 155px;
+        height: 155px;
+        border-radius: 50%;
+    }
+
+    .sns-container {
+        flex-wrap: wrap;
+    }
+
+    .sns-container a{
+        color: black;
+    }
+    /*user info end*/
+
+    /*Tag start*/
+    #tag_cloud .tags-item{
+        display: inline-block;
+        color: #000;
+        border: 1px solid gray;
+
+        margin: 4px 2px;
+        padding: 0 4px;
+        border-radius: 6px;
+    }
+    /*Tag end*/
+
+    /*Site box start*/
+    .site-box {
+        height: 60px;
+    }
+    /*Site box end*/
+
+    .category-list-item,
+    .archive-list-item {
+        display: flex;
+        margin-bottom: 4px;
+        justify-content: space-between;
+    }
+    .category-list-link,
+    .archive-list-link {
+        color: black;
+    }
+
+    .category-list-count,
+    .archive-list-count {
+        width: 32px;
+        text-align: center;
+        border-radius: 4px;
+        color: #fff;
+        background-color: gray;
+    }
+</style>
+<aside class="column is-hidden-touch is-3" style="max-width: 280px; min-width: 230px">
+    <div class="content-box user-info">
+        <div class="has-padding">
+            <header class="has-text-centered">
+                <img class="avatar" src="/images/use_img.jpg">
+            </header>
+            <section class="has-text-centered">
+                <h3><strong>LiuRun</strong></h3>
+                <p class="sub-title">一个爱玩天刀的小小鸟</p>
+                
+                <p class="is-flex center" style=" color: gray">
+                    <i class="fa fa-map-marker" style="padding: 5px"></i>
+                    China
+                </p>
+                
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+                </span>
+            </section>
+        </div>
+        <div class="top-line">
+            <ul class="sns-container justify-center is-flex has-padding">
+                
+
+                
+
+                
+                <li>
+                    <a target="_blank" href="https://www.zhihu.com/people/shaogongzai">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                        </span>
+                    </a>
+                </li>
+                
+
+                
+
+                
+
+                
+                <li>
+                    <a target="_blank" href="https://github.com/runingBody">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                        </span>
+                    </a>
+                </li>
+                
+
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-box">
+        <!--post数量和tag category 数量-->
+        <div class="site-box is-flex">
+            <div class="flex-1 is-flex flex-column center full-height right-line">
+                <strong>18</strong>
+                <p>文章</p>
+            </div>
+            <div class="flex-1 is-flex flex-column center full-height">
+                <strong>8</strong>
+                <p>标签</p>
+            </div>
+        </div>
+    </div>
+    <div id="tag_cloud" class="content-inner content-box">
+        <div class="has-text-centered">
+            <strong>标签</strong>
+        </div>
+        <div class="content-inner is-flex flex-wrap justify-space-between">
+            
+                <a class="tags-item" href="tags/前端/" title="前端" rel="5">
+                    前端
+                </a>
+            
+                <a class="tags-item" href="tags/架构/" title="架构" rel="4">
+                    架构
+                </a>
+            
+                <a class="tags-item" href="tags/Hexo/" title="Hexo" rel="1">
+                    Hexo
+                </a>
+            
+                <a class="tags-item" href="tags/react/" title="react" rel="3">
+                    react
+                </a>
+            
+                <a class="tags-item" href="tags/Webpack/" title="Webpack" rel="4">
+                    Webpack
+                </a>
+            
+                <a class="tags-item" href="tags/Javascript/" title="Javascript" rel="2">
+                    Javascript
+                </a>
+            
+                <a class="tags-item" href="tags/Linux/" title="Linux" rel="1">
+                    Linux
+                </a>
+            
+                <a class="tags-item" href="tags/Nginx/" title="Nginx" rel="1">
+                    Nginx
+                </a>
+            
+        </div>
+    </div>
+    <div class="content-inner content-box">
+        <div class="has-text-centered">
+            <strong>类别</strong>
+        </div>
+        <div class="content-inner">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/react-native/">react-native</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/专栏/">专栏</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">12</span></li></ul>
+        </div>
+    </div>
+    <div class="content-inner content-box">
+        <div class="has-text-centered">
+            <strong>档案</strong>
+        </div>
+        <div class="content-inner">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li></ul>
+        </div>
+    </div>
+</aside>
+            
+        </div>
+    </div>
+</div>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © Liu Run 2019
+        <br>
+        <!--Work Email: run.liu01@hand-china.com-->
+        <br>
+        Thanks for Theme by <a href="http://haojen.github.io/">Haojen Ma</a>
+        <br>
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

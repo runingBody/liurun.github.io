@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>防喷秘籍：JS代码编写规范 | LiuRun&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="现在写代码比以前好多了，代码的格式都有 eslint、prettier、babel(写新版语法) 这些来保证，然而，技术手段再高端都不能解决代码可读性（代码能否被未来的自己和同事看懂）的问题，因为这个问题只有人自己才能解决。 一、变量相关（1）变量数量的定义NO：滥用变量 123456789let kpi = 4;  // 定义好了之后再也没用过function example() &amp;#123;">
+<meta name="keywords" content="Javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="防喷秘籍：JS代码编写规范">
+<meta property="og:url" content="http://yoursite.com/2019/01/16/防喷秘籍：JS代码编写规范/index.html">
+<meta property="og:site_name" content="LiuRun&#39;s Blog">
+<meta property="og:description" content="现在写代码比以前好多了，代码的格式都有 eslint、prettier、babel(写新版语法) 这些来保证，然而，技术手段再高端都不能解决代码可读性（代码能否被未来的自己和同事看懂）的问题，因为这个问题只有人自己才能解决。 一、变量相关（1）变量数量的定义NO：滥用变量 123456789let kpi = 4;  // 定义好了之后再也没用过function example() &amp;#123;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-01T08:54:43.846Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="防喷秘籍：JS代码编写规范">
+<meta name="twitter:description" content="现在写代码比以前好多了，代码的格式都有 eslint、prettier、babel(写新版语法) 这些来保证，然而，技术手段再高端都不能解决代码可读性（代码能否被未来的自己和同事看懂）的问题，因为这个问题只有人自己才能解决。 一、变量相关（1）变量数量的定义NO：滥用变量 123456789let kpi = 4;  // 定义好了之后再也没用过function example() &amp;#123;">
+  
+    <link rel="alternate" href="/atom.xml" title="LiuRun&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Liu Run</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item" href="/about">
+                专栏
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                专栏
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+    .container .content .highlight {
+        overflow-x: scroll;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>防喷秘籍：JS代码编写规范</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="/images/use_img.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> LiuRun</span>
+                <span class="post-date sub-title">at: 2019-01-16</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/Javascript/">Javascript</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <p>现在写代码比以前好多了，代码的格式都有 eslint、prettier、babel(写新版语法) 这些来保证，然而，技术手段再高端都不能解决代码可读性（代码能否被未来的自己和同事看懂）的问题，因为这个问题只有人自己才能解决。</p>
+<h3 id="一、变量相关"><a href="#一、变量相关" class="headerlink" title="一、变量相关"></a>一、变量相关</h3><h4 id="（1）变量数量的定义"><a href="#（1）变量数量的定义" class="headerlink" title="（1）变量数量的定义"></a>（1）变量数量的定义</h4><p>NO：滥用变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let kpi = 4;  // 定义好了之后再也没用过</span><br><span class="line">function example() &#123;</span><br><span class="line">    var a = 1;</span><br><span class="line">    var b = 2;</span><br><span class="line">    var c = a+b;</span><br><span class="line">    var d = c+1;</span><br><span class="line">    var e = d+a;</span><br><span class="line">    return e;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>YES: 数据只使用一次或不使用就无需装到变量中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let kpi = 4;  // 没用的就删除掉，不然过三个月自己都不敢删，怕是不是那用到了</span><br><span class="line">function example() &#123;</span><br><span class="line">    var a = 1;</span><br><span class="line">    var b = 2;</span><br><span class="line">    return 2a+b+1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-变量的命名"><a href="#2-变量的命名" class="headerlink" title="(2) 变量的命名"></a>(2) 变量的命名</h4><p>NO：自我感觉良好的缩写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let fName = &apos;jackie&apos;; // 看起来命名挺规范，缩写，驼峰法都用上，ESlint 各种检测规范的工具都通过，But，fName 是啥？这时候，你是不是想说 What are you 弄啥呢？</span><br><span class="line">let lName = &apos;willen&apos;; // 这个问题和上面的一样</span><br></pre></td></tr></table></figure></p>
+<p>YES：无需对每个变量都写注释，从名字上就看懂<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let firstName = &apos;jackie&apos;; // 怎么样，是不是一目了然。少被喷了一次</span><br><span class="line">  let lastName = &apos;willen&apos;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="（3-特定的变量"><a href="#（3-特定的变量" class="headerlink" title="（3) 特定的变量"></a>（3) 特定的变量</h4><p>NO：无说明的参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (value.length &lt; 8) &#123; // 为什么要小于 8，8 表示啥？长度，还是位移，还是高度？Oh,my God!!</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="YES：添加变量"><a href="#YES：添加变量" class="headerlink" title="YES：添加变量"></a>YES：添加变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const MAX_INPUT_LENGTH = 8;</span><br><span class="line">if (value.length &lt; MAX_INPUT_LENGTH) &#123; // 一目了然，不能超过最大输入长度</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="（4）变量的命名"><a href="#（4）变量的命名" class="headerlink" title="（4）变量的命名"></a>（4）变量的命名</h4><p>NO：命名过于啰嗦<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let nameString;</span><br><span class="line">let theUsers;</span><br></pre></td></tr></table></figure></p>
+<p>YES： 做到简洁明了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let name;</span><br><span class="line">let users;</span><br></pre></td></tr></table></figure></p>
+<h4 id="（5）使用说明性的变量-即有意义的变量名"><a href="#（5）使用说明性的变量-即有意义的变量名" class="headerlink" title="（5）使用说明性的变量 (即有意义的变量名)"></a>（5）使用说明性的变量 (即有意义的变量名)</h4><p>NO：长代码不知道啥意思<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const address = &apos;One Infinite Loop, Cupertino 95014&apos;;</span><br><span class="line">const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d&#123;5&#125;)?$/;</span><br><span class="line">saveCityZipCode(</span><br><span class="line">  address.match(cityZipCodeRegex)[1], // 这个公式到底要干嘛，对不起，原作者已经离职了。自己看代码</span><br><span class="line">  address.match(cityZipCodeRegex)[2], // 这个公式到底要干嘛，对不起，原作者已经离职了。自己看代码</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>YES：用变量名来解释长代码的含义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const address = &apos;One Infinite Loop, Cupertino 95014&apos;;</span><br><span class="line">const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d&#123;5&#125;)?$/;</span><br><span class="line">const [, city, zipCode] = address.match(cityZipCodeRegex) || [];</span><br><span class="line">saveCityZipCode(city, zipCode);</span><br></pre></td></tr></table></figure></p>
+<h4 id="（6）避免使用太多的全局变量"><a href="#（6）避免使用太多的全局变量" class="headerlink" title="（6）避免使用太多的全局变量"></a>（6）避免使用太多的全局变量</h4><p>NO：在不同的文件不停的定义全局变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">name.js</span><br><span class="line">window.name = &apos;a&apos;;</span><br><span class="line">hello.js</span><br><span class="line">window.name = &apos;b&apos;;</span><br><span class="line">time.js</span><br><span class="line">window.name = &apos;c&apos;;  // 三个文件的先后加载顺序不同，都会使得 window.name 的值不同，同时，你对 window.name 的修改了都有可能不生效，因为你不知道你修改过之后别人是不是又在别的说明文件中对其的值重置了。所以随着文件的增多，会导致一团乱麻。</span><br></pre></td></tr></table></figure></p>
+<p>YES：少用或使用替代方案<br>你可以选择只用局部变量。通过 (){}的方法。<br>如果你确实用很多的全局变量需要共享，你可以使用 vuex,redux 或者你自己参考 flux 模式写一个也行。</p>
+<h4 id="7-变量的赋值"><a href="#7-变量的赋值" class="headerlink" title="(7) 变量的赋值"></a>(7) 变量的赋值</h4><p>NO：对于求值获取的变量，没有兜底。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const MIN_NAME_LENGTH = 8;</span><br><span class="line">let lastName = fullName[1];</span><br><span class="line">if(lastName.length &gt; MIN_NAME_LENGTH) &#123; // 这样你就给你的代码成功的埋了一个坑，你有考虑过如果 fullName = [&apos;jackie&apos;] 这样的情况吗？这样程序一跑起来就爆炸。要不你试试。</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>YES：对于求值变量，做好兜底。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const MIN_NAME_LENGTH = 8;</span><br><span class="line">let lastName = fullName[1] || &apos;&apos;; // 做好兜底，fullName[1] 中取不到的时候，不至于赋值个 undefined, 至少还有个空字符，从根本上讲，lastName 的变量类型还是 String，String 原型链上的特性都能使用，不会报错。不会变成 undefined。</span><br><span class="line">if(lastName.length &gt; MIN_NAME_LENGTH) &#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br><span class="line">其实在项目中有很多求值变量，对于每个求值变量都需要做好兜底。</span><br><span class="line">let propertyValue = Object.attr || 0; // 因为 Object.attr 有可能为空，所以需要兜底。</span><br><span class="line">但是，赋值变量就不需要兜底了。</span><br><span class="line">let a = 2; // 因为有底了，所以不要兜着。</span><br><span class="line">let myName = &apos;Tiny&apos;; // 因为有底了，所以不要兜着。</span><br></pre></td></tr></table></figure></p>
+<h3 id="二、函数相关"><a href="#二、函数相关" class="headerlink" title="二、函数相关"></a>二、函数相关</h3><h4 id="（1）函数命名"><a href="#（1）函数命名" class="headerlink" title="（1）函数命名"></a>（1）函数命名</h4><p>NO：从命名无法知道返回值类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">function showFriendsList() &#123;....&#125; // 现在问，你知道这个返回的是一个数组，还是一个对象，还是 true or false。你能答的上来否？你能答得上来我请你吃松鹤楼的满汉全席还请你不要当真。</span><br></pre></td></tr></table></figure></p>
+<p>Yes：对于返回 true or false 的函数，最好以 should/is/can/has 开头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function shouldShowFriendsList() &#123;...&#125;</span><br><span class="line">function isEmpty() &#123;...&#125;</span><br><span class="line">function canCreateDocuments() &#123;...&#125;</span><br><span class="line">function hasLicense() &#123;...&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-功能函数最好为纯函数"><a href="#2-功能函数最好为纯函数" class="headerlink" title="(2) 功能函数最好为纯函数"></a>(2) 功能函数最好为纯函数</h4><p>NO: 不要让功能函数的输出变化无常<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function plusAbc(a, b, c) &#123;  // 这个函数的输出将变化无常，因为 api 返回的值一旦改变，同样输入函数的 a，b,c 的值，但函数返回的结果却不一定相同。</span><br><span class="line">        var c = fetch(&apos;../api&apos;);</span><br><span class="line">        return a+b+c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>YES：功能函数使用纯函数，输入一致，输出结果永远唯一<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function plusAbc(a, b, c) &#123;  // 同样输入函数的 a，b,c 的值，但函数返回的结果永远相同。</span><br><span class="line">        return a+b+c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="（3）函数传参"><a href="#（3）函数传参" class="headerlink" title="（3）函数传参"></a>（3）函数传参</h4><p>传参无说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">page.getSVG(api, true, false); // true 和 false 啥意思，一目不了然</span><br></pre></td></tr></table></figure></p>
+<p>YES: 传参有说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">page.getSVG(&#123;</span><br><span class="line">    imageApi: api,</span><br><span class="line">    includePageBackground: true, // 一目了然，知道这些 true 和 false 是啥意思</span><br><span class="line">    compress: false,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="（4）动作函数要以动词开头"><a href="#（4）动作函数要以动词开头" class="headerlink" title="（4）动作函数要以动词开头"></a>（4）动作函数要以动词开头</h4><p>NO: 无法辨别函数意图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function emlU(user) &#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>YES：动词开头，函数意图就很明显<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function sendEmailToUser(user) &#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="（5）一个函数完成一个独立的功能，不要一个函数混杂多个功能"><a href="#（5）一个函数完成一个独立的功能，不要一个函数混杂多个功能" class="headerlink" title="（5）一个函数完成一个独立的功能，不要一个函数混杂多个功能"></a>（5）一个函数完成一个独立的功能，不要一个函数混杂多个功能</h4><p>这是软件工程中最重要的一条规则，当函数需要做更多的事情时，它们将会更难进行编写、测试、理解和组合。当你能将一个函数抽离出只完成一个动作，他们将能够很容易的进行重构并且你的代码将会更容易阅读。如果你严格遵守本条规则，你将会领先于许多开发者。</p>
+<p>NO：函数功能混乱，一个函数包含多个功能。最后就像能以一当百的老师傅一样，被乱拳打死（乱拳（功能复杂函数）打死老师傅（老程序员））<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function sendEmailToClients(clients) &#123;</span><br><span class="line">  clients.forEach(client =&gt; &#123;</span><br><span class="line">    const clientRecord = database.lookup(client)</span><br><span class="line">    if (clientRecord.isActive()) &#123;</span><br><span class="line">      email(client)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>YES： 功能拆解<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function sendEmailToActiveClients(clients) &#123;  // 各个击破，易于维护和复用</span><br><span class="line">  clients.filter(isActiveClient).forEach(email)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function isActiveClient(client) &#123;</span><br><span class="line">  const clientRecord = database.lookup(client)</span><br><span class="line">  return clientRecord.isActive()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="（6）优先使用命令式编程"><a href="#（6）优先使用命令式编程" class="headerlink" title="（6）优先使用命令式编程"></a>（6）优先使用命令式编程</h4><p>NO: 使用 for 循环编程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(i = 1; i &lt;= 10; i++) &#123; // 一看到 for 循环让人顿生不想看的情愫</span><br><span class="line">   a[i] = a[i] +1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>YES：使用命令式编程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let b = a.map(item =&gt; ++item) // 怎么样，是不是很好理解，就是把 a 的值每项加一赋值给 b 就可以了。现在在 javascript 中几乎所有的 for 循环都可以被 map,filter,find,some,any,forEach 等命令式编成取代。</span><br></pre></td></tr></table></figure></p>
+<h4 id="7-函数中过多的采用-if-else"><a href="#7-函数中过多的采用-if-else" class="headerlink" title="(7) 函数中过多的采用 if else .."></a>(7) 函数中过多的采用 if else ..</h4><p>No： if else 过多<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if (a === 1) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125; else if (a ===2) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125; else if (a === 3) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125; else &#123;</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>YES: 可以使用 switch 替代或用数组替代<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">switch(a) &#123;</span><br><span class="line">   case 1:</span><br><span class="line">           ....</span><br><span class="line">   case 2:</span><br><span class="line">           ....</span><br><span class="line">   case 3:</span><br><span class="line">           ....</span><br><span class="line">  default:</span><br><span class="line">       ....</span><br><span class="line">&#125;</span><br><span class="line">Or</span><br><span class="line">let handler = &#123;</span><br><span class="line">    1: () =&gt; &#123;....&#125;,</span><br><span class="line">    2: () =&gt; &#123;....&#125;.</span><br><span class="line">    3: () =&gt; &#123;....&#125;,</span><br><span class="line">    default: () =&gt; &#123;....&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">handler[a]() || handler[&apos;default&apos;]()</span><br></pre></td></tr></table></figure></p>
+<h3 id="尽量使用-ES6"><a href="#尽量使用-ES6" class="headerlink" title="尽量使用 ES6"></a>尽量使用 ES6</h3><h4 id="（1）尽量使用箭头函数"><a href="#（1）尽量使用箭头函数" class="headerlink" title="（1）尽量使用箭头函数"></a>（1）尽量使用箭头函数</h4><p>NO：采用传统函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  // code</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>YES：使用箭头函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let foo = () =&gt; &#123;</span><br><span class="line">  // code</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="（2）连接字符串"><a href="#（2）连接字符串" class="headerlink" title="（2）连接字符串"></a>（2）连接字符串</h4><p>NO：采用传统 + 号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var message = &apos;Hello &apos; + name + &apos;, it\&apos;s &apos; + time + &apos; now&apos;</span><br></pre></td></tr></table></figure></p>
+<p>YES：采用模板字符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var message = `Hello $&#123;name&#125;, it&apos;s $&#123;time&#125; now`</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-使用解构赋值"><a href="#3-使用解构赋值" class="headerlink" title="(3)  使用解构赋值"></a>(3)  使用解构赋值</h4><p>NO：使用传统赋值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var data = &#123; name: &apos;dys&apos;, age: 1 &#125;;</span><br><span class="line">var name = data.name;</span><br><span class="line">var age = data.age;</span><br><span class="line"></span><br><span class="line">var fullName = [&apos;jackie&apos;, &apos;willen&apos;];</span><br><span class="line">var firstName = fullName[0];</span><br><span class="line">var lastName = fullName[1];</span><br></pre></td></tr></table></figure></p>
+<p>YES：使用结构赋值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const data = &#123;name:&apos;dys&apos;, age:1&#125;;</span><br><span class="line">const &#123;name, age&#125; = data;   // 怎么样，是不是简单明了</span><br><span class="line"></span><br><span class="line">var fullName = [&apos;jackie&apos;, &apos;willen&apos;];</span><br><span class="line">const [firstName, lastName] = fullName;</span><br></pre></td></tr></table></figure></p>
+<h4 id="（4）尽量使用类-class"><a href="#（4）尽量使用类-class" class="headerlink" title="（4）尽量使用类 class"></a>（4）尽量使用类 class</h4><p>NO: 采用传统的函数原型链实现继承<br>典型的 ES5 的类 (function) 在继承、构造和方法定义方面可读性较差，当需要继承时，优先选用 class。<br>YES：采用 ES6 类实现继承<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">class Animal &#123;</span><br><span class="line">  constructor(age) &#123;</span><br><span class="line">    this.age = age</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  move() &#123;</span><br><span class="line">    /* ... */</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Mammal extends Animal &#123;</span><br><span class="line">  constructor(age, furColor) &#123;</span><br><span class="line">    super(age)</span><br><span class="line">    this.furColor = furColor</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  liveBirth() &#123;</span><br><span class="line">    /* ... */</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Human extends Mammal &#123;</span><br><span class="line">  constructor(age, furColor, languageSpoken) &#123;</span><br><span class="line">    super(age, furColor)</span><br><span class="line">    this.languageSpoken = languageSpoken</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  speak() &#123;</span><br><span class="line">    /* ... */</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="技术无罪，分享有情"><a href="#技术无罪，分享有情" class="headerlink" title="技术无罪，分享有情"></a>技术无罪，分享有情</h3><p>感谢 [GitHub]殷荣桧(<a href="https://github.com/jackiewillen/blog/issues/14" target="_blank" rel="noopener">https://github.com/jackiewillen/blog/issues/14</a>)</p>
+
+        </div>
+        <div class="post-reply">
+            
+            <div class="vcomments"></div>
+
+            <!--Leancloud 操作库:-->
+            <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+            <!--Valine 的核心代码库:-->
+            <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+            <script>
+                new Valine({
+                    el: '.vcomments',
+                    appId: "cUp1F343i6H7veqjhDDOOG7s-gzGzoHsz",
+                    appKey: "cBN1k4HFtguRAnAlQTW4Kcua",
+                    placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊! 评论我',
+                    enable: true,
+                    notify: false,
+                    verify: false,
+                    pageSize: 10
+                })
+            </script>
+            
+
+            
+
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © Liu Run 2019
+        <br>
+        <!--Work Email: run.liu01@hand-china.com-->
+        <br>
+        Thanks for Theme by <a href="http://haojen.github.io/">Haojen Ma</a>
+        <br>
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

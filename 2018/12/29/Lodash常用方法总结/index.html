@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>Lodash常用方法总结 | LiuRun&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、lodash简介Lodash是一个著名的javascript原生库，不需要引入其他第三方依赖。是一个意在提高开发者效率,提高JS原生方法性能的JS库。其内置（封装）好了很多高级的适用于常用数据结构（包含数组、对象、字符串、日期等）的处理方法。只需一个简单的方法名,直接调用就行了。 举个简单的例子：copy一个Js对象123456789//原生方法var a = &amp;#123;a:1,b:2,c:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lodash常用方法总结">
+<meta property="og:url" content="http://yoursite.com/2018/12/29/Lodash常用方法总结/index.html">
+<meta property="og:site_name" content="LiuRun&#39;s Blog">
+<meta property="og:description" content="一、lodash简介Lodash是一个著名的javascript原生库，不需要引入其他第三方依赖。是一个意在提高开发者效率,提高JS原生方法性能的JS库。其内置（封装）好了很多高级的适用于常用数据结构（包含数组、对象、字符串、日期等）的处理方法。只需一个简单的方法名,直接调用就行了。 举个简单的例子：copy一个Js对象123456789//原生方法var a = &amp;#123;a:1,b:2,c:">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-01T08:54:43.844Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lodash常用方法总结">
+<meta name="twitter:description" content="一、lodash简介Lodash是一个著名的javascript原生库，不需要引入其他第三方依赖。是一个意在提高开发者效率,提高JS原生方法性能的JS库。其内置（封装）好了很多高级的适用于常用数据结构（包含数组、对象、字符串、日期等）的处理方法。只需一个简单的方法名,直接调用就行了。 举个简单的例子：copy一个Js对象123456789//原生方法var a = &amp;#123;a:1,b:2,c:">
+  
+    <link rel="alternate" href="/atom.xml" title="LiuRun&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Liu Run</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item" href="/about">
+                专栏
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                专栏
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+    .container .content .highlight {
+        overflow-x: scroll;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>Lodash常用方法总结</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="/images/use_img.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> LiuRun</span>
+                <span class="post-date sub-title">at: 2018-12-29</span>
+            </div>
+            
+                <div>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <h2 id="一、lodash简介"><a href="#一、lodash简介" class="headerlink" title="一、lodash简介"></a>一、lodash简介</h2><p>Lodash是一个著名的javascript原生库，不需要引入其他第三方依赖。是一个意在提高开发者效率,提高JS原生方法性能的JS库。<br>其内置（封装）好了很多高级的适用于常用数据结构（包含数组、对象、字符串、日期等）的处理方法。只需一个简单的方法名,直接调用就行了。</p>
+<p>举个简单的例子：copy一个Js对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//原生方法</span><br><span class="line">var a = &#123;a:1,b:2,c:3&#125;;</span><br><span class="line">var b = &#123;&#125;;</span><br><span class="line">for(var key in a) &#123;</span><br><span class="line">  b[key] = a[key];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//lodash方法</span><br><span class="line">var b = _.clone(a);</span><br></pre></td></tr></table></figure></p>
+<h2 id="二、方法总结"><a href="#二、方法总结" class="headerlink" title="二、方法总结"></a>二、方法总结</h2><h3 id="1-数组-Array"><a href="#1-数组-Array" class="headerlink" title="1. 数组[Array]"></a>1. 数组[Array]</h3><h4 id="chunk-array-size-1-方法："><a href="#chunk-array-size-1-方法：" class="headerlink" title="chunk(array, [size=1])方法："></a>chunk(array, [size=1])方法：</h4><p>分块函数，按第二个参数数字大小对数组进行分块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.chunk([&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;], 2);</span><br><span class="line">// =&gt; [[&apos;a&apos;, &apos;b&apos;], [&apos;c&apos;, &apos;d&apos;]]</span><br></pre></td></tr></table></figure></p>
+<h4 id="compact-array-方法："><a href="#compact-array-方法：" class="headerlink" title="compact(array)方法："></a>compact(array)方法：</h4><p>紧凑函数，剔除数组中无用元素，包含：false, null, 0,””, undefined, NaN,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.compact([0, 1, false, 2, &apos;&apos;, 3]);</span><br><span class="line">// =&gt; [1, 2, 3]</span><br></pre></td></tr></table></figure></p>
+<h4 id="concat-array-values-方法："><a href="#concat-array-values-方法：" class="headerlink" title="concat(array, [values])方法："></a>concat(array, [values])方法：</h4><p>拼接函数，从第二个参数位开始拼接数组，返回一个新数组,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var array = [1];</span><br><span class="line">var other = _.concat(array, 2, [3], [[4]]);</span><br><span class="line"> </span><br><span class="line">console.log(other);</span><br><span class="line">// =&gt; [1, 2, 3, [4]]</span><br><span class="line"> </span><br><span class="line">console.log(array);</span><br><span class="line">// =&gt; [1]</span><br></pre></td></tr></table></figure></p>
+<h4 id="difference-array-values-方法："><a href="#difference-array-values-方法：" class="headerlink" title="difference(array, [values])方法："></a>difference(array, [values])方法：</h4><p>差异函数，实际数组（参数1）同比较数组（参数2）比较得到参数1中不共同元素，返回一个新数组,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.difference([2, 1], [2, 3]);</span><br><span class="line">// =&gt; [1]</span><br></pre></td></tr></table></figure></p>
+<h4 id="drop（array-n-1-）方法："><a href="#drop（array-n-1-）方法：" class="headerlink" title="drop（array, [n=1]）方法："></a>drop（array, [n=1]）方法：</h4><p>左删除函数，按参数2大小从数组首位开始删除元素，如不指定参数2则默认为删除1位,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">_.drop([1, 2, 3]);</span><br><span class="line">// =&gt; [2, 3]</span><br><span class="line"> </span><br><span class="line">_.drop([1, 2, 3], 2);</span><br><span class="line">// =&gt; [3]</span><br><span class="line"> </span><br><span class="line">_.drop([1, 2, 3], 5);</span><br><span class="line">// =&gt; []</span><br><span class="line"> </span><br><span class="line">_.drop([1, 2, 3], 0);</span><br><span class="line">// =&gt; [1, 2, 3]</span><br></pre></td></tr></table></figure></p>
+<h4 id="dropRight（array-n-1-）方法："><a href="#dropRight（array-n-1-）方法：" class="headerlink" title="dropRight（array, [n=1]）方法："></a>dropRight（array, [n=1]）方法：</h4><p>右删除函数，同上，从右侧开始删除,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">_.dropRight([1, 2, 3]);</span><br><span class="line">// =&gt; [1, 2]</span><br><span class="line"> </span><br><span class="line">_.dropRight([1, 2, 3], 2);</span><br><span class="line">// =&gt; [1]</span><br><span class="line"> </span><br><span class="line">_.dropRight([1, 2, 3], 5);</span><br><span class="line">// =&gt; []</span><br><span class="line"> </span><br><span class="line">_.dropRight([1, 2, 3], 0);</span><br><span class="line">// =&gt; [1, 2, 3]</span><br></pre></td></tr></table></figure></p>
+<h4 id="fill-array-value-start-0-end-array-length-方法："><a href="#fill-array-value-start-0-end-array-length-方法：" class="headerlink" title="_.fill(array, value, [start=0], [end=array.length])方法："></a>_.fill(array, value, [start=0], [end=array.length])方法：</h4><p>填充函数，用指定元素填充（覆盖）数组，可以指定起始末位置,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var array = [1, 2, 3];</span><br><span class="line"> </span><br><span class="line">_.fill(array, &apos;a&apos;);</span><br><span class="line">console.log(array);</span><br><span class="line">// =&gt; [&apos;a&apos;, &apos;a&apos;, &apos;a&apos;]</span><br><span class="line"> </span><br><span class="line">_.fill(Array(3), 2);</span><br><span class="line">// =&gt; [2, 2, 2]</span><br><span class="line"> </span><br><span class="line">_.fill([4, 6, 8, 10], &apos;*&apos;, 1, 3);</span><br><span class="line">// =&gt; [4, &apos;*&apos;, &apos;*&apos;, 10]</span><br></pre></td></tr></table></figure></p>
+<h4 id="findIndex-array-predicate-identity-fromIndex-0-方法："><a href="#findIndex-array-predicate-identity-fromIndex-0-方法：" class="headerlink" title=".findIndex(array, [predicate=.identity], [fromIndex=0])方法："></a><em>.findIndex(array, [predicate=</em>.identity], [fromIndex=0])方法：</h4><p>查找函数（从左往右匹配），找到符合条件的元素，注意是找最后一个符合条件的元素下标，否则返回-1,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var users = [</span><br><span class="line">  &#123; &apos;user&apos;: &apos;barney&apos;,  &apos;active&apos;: false &#125;,</span><br><span class="line">  &#123; &apos;user&apos;: &apos;fred&apos;,    &apos;active&apos;: false &#125;,</span><br><span class="line">  &#123; &apos;user&apos;: &apos;pebbles&apos;, &apos;active&apos;: true &#125;</span><br><span class="line">];</span><br><span class="line"> </span><br><span class="line">_.findIndex(users, function(o) &#123; return o.user == &apos;barney&apos;; &#125;);</span><br><span class="line">// =&gt; 0</span><br><span class="line"> </span><br><span class="line">// The `_.matches` iteratee shorthand.</span><br><span class="line">_.findIndex(users, &#123; &apos;user&apos;: &apos;fred&apos;, &apos;active&apos;: false &#125;);</span><br><span class="line">// =&gt; 1</span><br><span class="line"> </span><br><span class="line">// The `_.matchesProperty` iteratee shorthand.</span><br><span class="line">_.findIndex(users, [&apos;active&apos;, false]);</span><br><span class="line">// =&gt; 0</span><br><span class="line"> </span><br><span class="line">// The `_.property` iteratee shorthand.</span><br><span class="line">_.findIndex(users, &apos;active&apos;);</span><br><span class="line">// =&gt; 2</span><br></pre></td></tr></table></figure></p>
+<h4 id="findIndex-array-predicate-identity-fromIndex-0-方法：-1"><a href="#findIndex-array-predicate-identity-fromIndex-0-方法：-1" class="headerlink" title=".findIndex(array, [predicate=.identity], [fromIndex=0])方法："></a><em>.findIndex(array, [predicate=</em>.identity], [fromIndex=0])方法：</h4><p>查找函数（从右往左匹配），找到符合条件的元素，注意是找最后一个符合条件的元素下标，否则返回-1,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var users = [</span><br><span class="line">  &#123; &apos;user&apos;: &apos;barney&apos;,  &apos;active&apos;: true &#125;,</span><br><span class="line">  &#123; &apos;user&apos;: &apos;fred&apos;,    &apos;active&apos;: false &#125;,</span><br><span class="line">  &#123; &apos;user&apos;: &apos;pebbles&apos;, &apos;active&apos;: false &#125;</span><br><span class="line">];</span><br><span class="line"> </span><br><span class="line">_.findLastIndex(users, function(o) &#123; return o.user == &apos;pebbles&apos;; &#125;);</span><br><span class="line">// =&gt; 2</span><br><span class="line"> </span><br><span class="line">// The `_.matches` iteratee shorthand.</span><br><span class="line">_.findLastIndex(users, &#123; &apos;user&apos;: &apos;barney&apos;, &apos;active&apos;: true &#125;);</span><br><span class="line">// =&gt; 0</span><br><span class="line"> </span><br><span class="line">// The `_.matchesProperty` iteratee shorthand.</span><br><span class="line">_.findLastIndex(users, [&apos;active&apos;, false]);</span><br><span class="line">// =&gt; 2</span><br><span class="line"> </span><br><span class="line">// The `_.property` iteratee shorthand.</span><br><span class="line">_.findLastIndex(users, &apos;active&apos;);</span><br><span class="line">// =&gt; 0</span><br></pre></td></tr></table></figure></p>
+<h4 id="flatten-array-方法："><a href="#flatten-array-方法：" class="headerlink" title="_.flatten(array)方法："></a>_.flatten(array)方法：</h4><p>降平函数，将数组降低一个层级, 返回一个新数组，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.flatten([1, [2, [3, [4]], 5]]);</span><br><span class="line">// =&gt; [1, 2, [3, [4]], 5]</span><br></pre></td></tr></table></figure></p>
+<h4 id="flattenDeep-array-方法："><a href="#flattenDeep-array-方法：" class="headerlink" title="_.flattenDeep(array)方法："></a>_.flattenDeep(array)方法：</h4><p>深降平函数，将数组完全降级成一阶, 返回一个新数组，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.flattenDeep([1, [2, [3, [4]], 5]]);</span><br><span class="line">// =&gt; [1, 2, 3, 4, 5]</span><br></pre></td></tr></table></figure></p>
+<h4 id="initial-array-方法："><a href="#initial-array-方法：" class="headerlink" title="_.initial(array)方法："></a>_.initial(array)方法：</h4><p>去尾初始化函数，去除最后一个元素，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">_.initial([1, 2, 3]);</span><br><span class="line">// =&gt; [1, 2]</span><br><span class="line">反向 _.tail(array) // 功能同上，变为去头初始化函数</span><br></pre></td></tr></table></figure></p>
+<h4 id="intersection-arrays-方法："><a href="#intersection-arrays-方法：" class="headerlink" title="_.intersection([arrays])方法："></a>_.intersection([arrays])方法：</h4><p>同值函数，找到两个函数的相同值，返回一个新数组，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.intersection([2, 1], [2, 3]);</span><br><span class="line">// =&gt; [2]</span><br></pre></td></tr></table></figure></p>
+<h4 id="pull-array-values-方法："><a href="#pull-array-values-方法：" class="headerlink" title="_.pull(array, [values])方法："></a>_.pull(array, [values])方法：</h4><p>拉去函数，去除指定参数元素，返回一个新数组，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var array = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;a&apos;, &apos;b&apos;, &apos;c&apos;];</span><br><span class="line"> </span><br><span class="line">_.pull(array, &apos;a&apos;, &apos;c&apos;);</span><br><span class="line">console.log(array);</span><br><span class="line">// =&gt; [&apos;b&apos;, &apos;b&apos;]</span><br><span class="line"></span><br><span class="line">_.pullAll(array, values) 函数功能同上，参数变为数组</span><br></pre></td></tr></table></figure></p>
+<h4 id="take-array-n-1-方法："><a href="#take-array-n-1-方法：" class="headerlink" title="_.take(array, [n=1])方法："></a>_.take(array, [n=1])方法：</h4><p>取数函数，从左往右按参数2的大小数取值，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">_.take([1, 2, 3]);</span><br><span class="line">// =&gt; [1]</span><br><span class="line"> </span><br><span class="line">_.take([1, 2, 3], 2);</span><br><span class="line">// =&gt; [1, 2]</span><br><span class="line"> </span><br><span class="line">_.take([1, 2, 3], 5);</span><br><span class="line">// =&gt; [1, 2, 3]</span><br><span class="line"> </span><br><span class="line">_.take([1, 2, 3], 0);</span><br><span class="line">// =&gt; []</span><br></pre></td></tr></table></figure></p>
+<p>其它优秀的高级的—lodash方法可以访问<a href="https://www.lodashjs.com/docs/4.17.5.html#chunk" target="_blank" rel="noopener">官网</a>参考</p>
+<h3 id="3-集合操作-Collection"><a href="#3-集合操作-Collection" class="headerlink" title="3. 集合操作[Collection]"></a>3. 集合操作[Collection]</h3><h4 id="countBy-collection-iteratee-identity-方法："><a href="#countBy-collection-iteratee-identity-方法：" class="headerlink" title=".countBy(collection, [iteratee=.identity])方法："></a><em>.countBy(collection, [iteratee=</em>.identity])方法：</h4><p>统计函数，按能满足相同条件，统计个数，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">_.countBy([6.1, 4.2, 6.3], Math.floor);</span><br><span class="line">// =&gt; &#123; &apos;4&apos;: 1, &apos;6&apos;: 2 &#125;</span><br><span class="line"> </span><br><span class="line">// The `_.property` iteratee shorthand.</span><br><span class="line">_.countBy([&apos;one&apos;, &apos;two&apos;, &apos;three&apos;], &apos;length&apos;);</span><br><span class="line">// =&gt; &#123; &apos;3&apos;: 2, &apos;5&apos;: 1 &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="forEach-collection-iteratee-identity-方法："><a href="#forEach-collection-iteratee-identity-方法：" class="headerlink" title=".forEach(collection, [iteratee=.identity])方法："></a><em>.forEach(collection, [iteratee=</em>.identity])方法：</h4><p>遍历操作函数，按能满足同意条件分组，，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">_.forEach([1, 2], function(value) &#123;</span><br><span class="line">  console.log(value);</span><br><span class="line">&#125;);</span><br><span class="line">// =&gt; Logs `1` then `2`.</span><br><span class="line"> </span><br><span class="line">_.forEach(&#123; &apos;a&apos;: 1, &apos;b&apos;: 2 &#125;, function(value, key) &#123;</span><br><span class="line">  console.log(key);</span><br><span class="line">&#125;);</span><br><span class="line">// =&gt; Logs &apos;a&apos; then &apos;b&apos; (iteration order is not guaranteed).</span><br></pre></td></tr></table></figure></p>
+<h4 id="groupBy-collection-iteratee-identity-方法："><a href="#groupBy-collection-iteratee-identity-方法：" class="headerlink" title=".groupBy(collection, [iteratee=.identity])方法："></a><em>.groupBy(collection, [iteratee=</em>.identity])方法：</h4><p>分组函数，按能满足同意条件分组，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">_.groupBy([6.1, 4.2, 6.3], Math.floor);</span><br><span class="line">// =&gt; &#123; &apos;4&apos;: [4.2], &apos;6&apos;: [6.1, 6.3] &#125;</span><br><span class="line"> </span><br><span class="line">// The `_.property` iteratee shorthand.</span><br><span class="line">_.groupBy([&apos;one&apos;, &apos;two&apos;, &apos;three&apos;], &apos;length&apos;);</span><br><span class="line">// =&gt; &#123; &apos;3&apos;: [&apos;one&apos;, &apos;two&apos;], &apos;5&apos;: [&apos;three&apos;] &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="map-collection-iteratee-identity-方法："><a href="#map-collection-iteratee-identity-方法：" class="headerlink" title=".map(collection, [iteratee=.identity])方法："></a><em>.map(collection, [iteratee=</em>.identity])方法：</h4><p>集合遍历函数，返回一个新数组，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function square(n) &#123;</span><br><span class="line">  return n * n;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">_.map([4, 8], square);</span><br><span class="line">// =&gt; [16, 64]</span><br><span class="line"> </span><br><span class="line">_.map(&#123; &apos;a&apos;: 4, &apos;b&apos;: 8 &#125;, square);</span><br><span class="line">// =&gt; [16, 64] (iteration order is not guaranteed)</span><br><span class="line"> </span><br><span class="line">var users = [</span><br><span class="line">  &#123; &apos;user&apos;: &apos;barney&apos; &#125;,</span><br><span class="line">  &#123; &apos;user&apos;: &apos;fred&apos; &#125;</span><br><span class="line">];</span><br><span class="line"> </span><br><span class="line">// The `_.property` iteratee shorthand.</span><br><span class="line">_.map(users, &apos;user&apos;);</span><br><span class="line">// =&gt; [&apos;barney&apos;, &apos;fred&apos;]</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-对象-Object"><a href="#3-对象-Object" class="headerlink" title="3. 对象[Object]"></a>3. 对象[Object]</h3><h4 id="assign-object-sources-方法："><a href="#assign-object-sources-方法：" class="headerlink" title="_.assign(object, [sources])方法："></a>_.assign(object, [sources])方法：</h4><p>拷贝函数（浅），<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function Foo() &#123;</span><br><span class="line">  this.a = 1;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">function Bar() &#123;</span><br><span class="line">  this.c = 3;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Foo.prototype.b = 2;</span><br><span class="line">Bar.prototype.d = 4;</span><br><span class="line"> </span><br><span class="line">_.assign(&#123; &apos;a&apos;: 0 &#125;, new Foo, new Bar);</span><br><span class="line">// =&gt; &#123; &apos;a&apos;: 1, &apos;c&apos;: 3 &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="assignIn-object-sources-方法："><a href="#assignIn-object-sources-方法：" class="headerlink" title="_.assignIn(object, [sources])方法："></a>_.assignIn(object, [sources])方法：</h4><p>拷贝函数（深），<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function Foo() &#123;</span><br><span class="line">  this.a = 1;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">function Bar() &#123;</span><br><span class="line">  this.c = 3;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Foo.prototype.b = 2;</span><br><span class="line">Bar.prototype.d = 4;</span><br><span class="line"> </span><br><span class="line">_.assign(&#123; &apos;a&apos;: 0 &#125;, new Foo, new Bar);</span><br><span class="line">// =&gt; &#123; &apos;a&apos;: 1, &apos;c&apos;: 3 &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="pick-object-paths-方法："><a href="#pick-object-paths-方法：" class="headerlink" title="_.pick(object, [paths])方法："></a>_.pick(object, [paths])方法：</h4><p>捡取函数，返获取指定参数2的元素，返回一个新对象，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var object = &#123; &apos;a&apos;: 1, &apos;b&apos;: &apos;2&apos;, &apos;c&apos;: 3 &#125;;</span><br><span class="line"> </span><br><span class="line">_.pick(object, [&apos;a&apos;, &apos;c&apos;]);</span><br><span class="line">// =&gt; &#123; &apos;a&apos;: 1, &apos;c&apos;: 3 &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="omit-object-paths-方法："><a href="#omit-object-paths-方法：" class="headerlink" title="_.omit(object, [paths])方法："></a>_.omit(object, [paths])方法：</h4><p>忽略函数，剔除指定参数2的元素，返回一个新对象，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">var object = &#123; &apos;a&apos;: 1, &apos;b&apos;: &apos;2&apos;, &apos;c&apos;: 3 &#125;;</span><br><span class="line"> </span><br><span class="line">_.omit(object, [&apos;a&apos;, &apos;c&apos;]);</span><br><span class="line">// =&gt; &#123; &apos;b&apos;: &apos;2&apos; &#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### _.transform(object, [iteratee=_.identity], [accumulator])方法：</span><br><span class="line">转化函数，自定义处理函数，</span><br><span class="line">```language</span><br><span class="line">_.transform([2, 3, 4], function(result, n) &#123;</span><br><span class="line">  result.push(n *= n);</span><br><span class="line">  return n % 2 == 0;</span><br><span class="line">&#125;, []);</span><br><span class="line">// =&gt; [4, 9]</span><br><span class="line"> </span><br><span class="line">_.transform(&#123; &apos;a&apos;: 1, &apos;b&apos;: 2, &apos;c&apos;: 1 &#125;, function(result, value, key) &#123;</span><br><span class="line">  (result[value] || (result[value] = [])).push(key);</span><br><span class="line">&#125;, &#123;&#125;);</span><br><span class="line">// =&gt; &#123; &apos;1&apos;: [&apos;a&apos;, &apos;c&apos;], &apos;2&apos;: [&apos;b&apos;] &#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">#### _.findKey(object, [predicate=_.identity])方法：</span><br><span class="line">找到指定函数，根据筛选条件找到过滤元素，</span><br><span class="line">```language</span><br><span class="line">var users = &#123;</span><br><span class="line">  &apos;barney&apos;:  &#123; &apos;age&apos;: 36, &apos;active&apos;: true &#125;,</span><br><span class="line">  &apos;fred&apos;:    &#123; &apos;age&apos;: 40, &apos;active&apos;: false &#125;,</span><br><span class="line">  &apos;pebbles&apos;: &#123; &apos;age&apos;: 1,  &apos;active&apos;: true &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">_.findKey(users, function(o) &#123; return o.age &lt; 40; &#125;);</span><br><span class="line">// =&gt; &apos;barney&apos; (iteration order is not guaranteed)</span><br><span class="line"> </span><br><span class="line">// The `_.matches` iteratee shorthand.</span><br><span class="line">_.findKey(users, &#123; &apos;age&apos;: 1, &apos;active&apos;: true &#125;);</span><br><span class="line">// =&gt; &apos;pebbles&apos;</span><br><span class="line"> </span><br><span class="line">// The `_.matchesProperty` iteratee shorthand.</span><br><span class="line">_.findKey(users, [&apos;active&apos;, false]);</span><br><span class="line">// =&gt; &apos;fred&apos;</span><br><span class="line"> </span><br><span class="line">// The `_.property` iteratee shorthand.</span><br><span class="line">_.findKey(users, &apos;active&apos;);</span><br><span class="line">// =&gt; &apos;barney&apos;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">#### _.invert(object)方法：</span><br><span class="line">对调函数，对象的键值对反转，返回一个新对象，</span><br><span class="line">```language</span><br><span class="line">var object = &#123; &apos;a&apos;: 1, &apos;b&apos;: 2, &apos;c&apos;: 1 &#125;;</span><br><span class="line"> </span><br><span class="line">_.invert(object);</span><br><span class="line">// =&gt; &#123; &apos;1&apos;: &apos;c&apos;, &apos;2&apos;: &apos;b&apos; &#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">#### _.invertBy(object, [iteratee=_.identity])方法：</span><br><span class="line">对调函数，取全值并格式化返回结果，返回一个新对象，</span><br><span class="line">```language</span><br><span class="line">var object = &#123; &apos;a&apos;: 1, &apos;b&apos;: 2, &apos;c&apos;: 1 &#125;;</span><br><span class="line"> </span><br><span class="line">_.invertBy(object);</span><br><span class="line">// =&gt; &#123; &apos;1&apos;: [&apos;a&apos;, &apos;c&apos;], &apos;2&apos;: [&apos;b&apos;] &#125;</span><br><span class="line"> </span><br><span class="line">_.invertBy(object, function(value) &#123;</span><br><span class="line">  return &apos;group&apos; + value;</span><br><span class="line">&#125;);</span><br><span class="line">// =&gt; &#123; &apos;group1&apos;: [&apos;a&apos;, &apos;c&apos;], &apos;group2&apos;: [&apos;b&apos;] &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-字符串-String"><a href="#4-字符串-String" class="headerlink" title="4. 字符串[String]"></a>4. 字符串[String]</h3><h4 id="trim-string-’’-chars-whitespace-方法："><a href="#trim-string-’’-chars-whitespace-方法：" class="headerlink" title="_.trim([string=’’], [chars=whitespace])方法："></a>_.trim([string=’’], [chars=whitespace])方法：</h4><p>trim函数，去除指定字符，默认空格，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">_.trim(&apos;  abc  &apos;);</span><br><span class="line">// =&gt; &apos;abc&apos;</span><br><span class="line"> </span><br><span class="line">_.trim(&apos;-_-abc-_-&apos;, &apos;_-&apos;);</span><br><span class="line">// =&gt; &apos;abc&apos;</span><br><span class="line"> </span><br><span class="line">_.map([&apos;  foo  &apos;, &apos;  bar  &apos;], _.trim);</span><br><span class="line">// =&gt; [&apos;foo&apos;, &apos;bar&apos;]</span><br><span class="line"></span><br><span class="line">_.trimEnd(&apos;  abc  &apos;);</span><br><span class="line">// =&gt; &apos;  abc&apos;</span><br><span class="line"> </span><br><span class="line">_.trimEnd(&apos;-_-abc-_-&apos;, &apos;_-&apos;);</span><br><span class="line">// =&gt; &apos;-_-abc&apos;</span><br><span class="line"></span><br><span class="line">_.trimStart(&apos;  abc  &apos;);</span><br><span class="line">// =&gt; &apos;abc  &apos;</span><br><span class="line"> </span><br><span class="line">_.trimStart(&apos;-_-abc-_-&apos;, &apos;_-&apos;);</span><br><span class="line">// =&gt; &apos;abc-_-&apos;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">#### _.split([string=&apos;&apos;], separator, [limit])方法：</span><br><span class="line">split切割函数，可按指定参数2对数组切割，可限制大小，</span><br><span class="line">```language</span><br><span class="line">_.split(&apos;a-b-c&apos;, &apos;-&apos;, 2);</span><br><span class="line">// =&gt; [&apos;a&apos;, &apos;b&apos;]</span><br></pre></td></tr></table></figure></p>
+<h4 id="parseInt-string-radix-10-方法："><a href="#parseInt-string-radix-10-方法：" class="headerlink" title="_.parseInt(string, [radix=10])方法："></a>_.parseInt(string, [radix=10])方法：</h4><p>解析函数，对字符串中数值解析，可设定解析进制数，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_.parseInt(&apos;08&apos;);</span><br><span class="line">// =&gt; 8</span><br><span class="line"> </span><br><span class="line">_.map([&apos;6&apos;, &apos;08&apos;, &apos;10&apos;], _.parseInt);</span><br><span class="line">// =&gt; [6, 8, 10]</span><br></pre></td></tr></table></figure></p>
+<h4 id="capitalize-string-’’-方法："><a href="#capitalize-string-’’-方法：" class="headerlink" title="_.capitalize([string=’’])方法："></a>_.capitalize([string=’’])方法：</h4><p>首字符大写函数，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.capitalize(&apos;FRED&apos;);</span><br><span class="line">// =&gt; &apos;Fred&apos;</span><br></pre></td></tr></table></figure></p>
+<h4 id="camelCase-string-’’-方法："><a href="#camelCase-string-’’-方法：" class="headerlink" title="_.camelCase([string=’’])方法："></a>_.camelCase([string=’’])方法：</h4><p>驼峰化函数，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">_.camelCase(&apos;Foo Bar&apos;);</span><br><span class="line">// =&gt; &apos;fooBar&apos;</span><br><span class="line"> </span><br><span class="line">_.camelCase(&apos;--foo-bar--&apos;);</span><br><span class="line">// =&gt; &apos;fooBar&apos;</span><br><span class="line"> </span><br><span class="line">_.camelCase(&apos;__FOO_BAR__&apos;);</span><br><span class="line">// =&gt; &apos;fooBar&apos;</span><br></pre></td></tr></table></figure></p>
+<h4 id="资料维护，如有纰漏，评论指正，谢谢阅览"><a href="#资料维护，如有纰漏，评论指正，谢谢阅览" class="headerlink" title="资料维护，如有纰漏，评论指正，谢谢阅览"></a>资料维护，如有纰漏，评论指正，谢谢阅览</h4>
+        </div>
+        <div class="post-reply">
+            
+            <div class="vcomments"></div>
+
+            <!--Leancloud 操作库:-->
+            <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+            <!--Valine 的核心代码库:-->
+            <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+            <script>
+                new Valine({
+                    el: '.vcomments',
+                    appId: "cUp1F343i6H7veqjhDDOOG7s-gzGzoHsz",
+                    appKey: "cBN1k4HFtguRAnAlQTW4Kcua",
+                    placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊! 评论我',
+                    enable: true,
+                    notify: false,
+                    verify: false,
+                    pageSize: 10
+                })
+            </script>
+            
+
+            
+
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © Liu Run 2019
+        <br>
+        <!--Work Email: run.liu01@hand-china.com-->
+        <br>
+        Thanks for Theme by <a href="http://haojen.github.io/">Haojen Ma</a>
+        <br>
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>
