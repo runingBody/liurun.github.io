@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>前端小金库- Use Tips | LiuRun&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="常用函数注释 1234567/** *  underscore 防抖函数，返回函数连续调用时，空闲时间必须大于或等于 wait，func 才会执行 * *  @param &amp;#123;function&amp;#125; func 回调函数 *  @param &amp;#123;number&amp;#125; wait 表示时间窗口的间隔 *  @param &amp;#123;boolean&amp;#125; immediat">
+<meta name="keywords" content="前端,Javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端小金库- Use Tips">
+<meta property="og:url" content="http://yoursite.com/2019/11/18/前端小金库-Use-Tips/index.html">
+<meta property="og:site_name" content="LiuRun&#39;s Blog">
+<meta property="og:description" content="常用函数注释 1234567/** *  underscore 防抖函数，返回函数连续调用时，空闲时间必须大于或等于 wait，func 才会执行 * *  @param &amp;#123;function&amp;#125; func 回调函数 *  @param &amp;#123;number&amp;#125; wait 表示时间窗口的间隔 *  @param &amp;#123;boolean&amp;#125; immediat">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-11-18T03:08:47.856Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端小金库- Use Tips">
+<meta name="twitter:description" content="常用函数注释 1234567/** *  underscore 防抖函数，返回函数连续调用时，空闲时间必须大于或等于 wait，func 才会执行 * *  @param &amp;#123;function&amp;#125; func 回调函数 *  @param &amp;#123;number&amp;#125; wait 表示时间窗口的间隔 *  @param &amp;#123;boolean&amp;#125; immediat">
+  
+    <link rel="alternate" href="/atom.xml" title="LiuRun&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Liu Run</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item" href="/about">
+                专栏
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                随笔
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                专栏
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+    .container .content .highlight {
+        overflow-x: scroll;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>前端小金库- Use Tips</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="/images/use_img.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> LiuRun</span>
+                <span class="post-date sub-title">at: 2019-11-18</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/前端/">前端</a>
+                    
+                         <a class="tag is-post-tag" href="/tags/Javascript/">Javascript</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <ol>
+<li><p>常用函数注释</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  underscore 防抖函数，返回函数连续调用时，空闲时间必须大于或等于 wait，func 才会执行 *</span><br><span class="line"> *  @param &#123;function&#125; func 回调函数</span><br><span class="line"> *  @param &#123;number&#125; wait 表示时间窗口的间隔</span><br><span class="line"> *  @param &#123;boolean&#125; immediate 设置为ture时，是否立即调用函数</span><br><span class="line"> *  @return &#123;function&#125; 返回客户调用函数</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件类/模块文件/文件注解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  会员模块Service</span><br><span class="line"> * @date: 2019-08-16</span><br><span class="line"> * @author: xxx &lt;email.xxx.com&gt;</span><br><span class="line"> * @version: 0.0.1</span><br><span class="line"> * @copyright Copyright (c) 2019, Company</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决前端本地调测时跨域问题（本地调试阶段,一般针对option预检请求）<br>解决方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mac系统：/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security --user-data-dir</span><br><span class="line">windows系统： Chrome.exe --disable-web-security --user-data-dir（windows下在chorm安装路径下执行）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>axios拦截设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">axios.interceptors.request.use(</span><br><span class="line">  (config) =&gt; &#123;</span><br><span class="line">    const newConfig = config;</span><br><span class="line">    newConfig.headers[&apos;Content-Type&apos;] = &apos;application/json&apos;;</span><br><span class="line">    newConfig.headers.Accept = &apos;application/json&apos;;</span><br><span class="line">    const accessToken = cookies.get(HP.ACCESS_TOKEN);</span><br><span class="line">    if (accessToken) &#123;</span><br><span class="line">      newConfig.headers.Authorization = `bearer $&#123;accessToken&#125;`;</span><br><span class="line">    &#125;</span><br><span class="line">    return newConfig;</span><br><span class="line">  &#125;,</span><br><span class="line">  (err) =&gt; &#123;</span><br><span class="line">    const error = err;</span><br><span class="line">    return Promise.reject(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">axios.interceptors.response.use(</span><br><span class="line">  (response) =&gt; &#123;</span><br><span class="line">    if (response.status === 204) &#123;</span><br><span class="line">      return Promise.resolve(response);</span><br><span class="line">    &#125;</span><br><span class="line">    // continue sending response to the then() method</span><br><span class="line">    return Promise.resolve(response.data);</span><br><span class="line">  &#125;,</span><br><span class="line">  (error) =&gt; &#123;</span><br><span class="line">    const response = error.response;</span><br><span class="line">    if (response) &#123;</span><br><span class="line">      const status = response.status;</span><br><span class="line">      switch (status) &#123;</span><br><span class="line">        // check if unauthorized error returned</span><br><span class="line">        case 401: &#123;</span><br><span class="line">          HP.removeAccessToken();</span><br><span class="line">          let flag = true;</span><br><span class="line">          hpConfig.openPagePathPrefix.forEach((prefix) =&gt; &#123;</span><br><span class="line">            const regex = new RegExp(`^$&#123;prefix&#125;`);</span><br><span class="line">            if (regex.test(window.location.href.split(&apos;#&apos;)[1])) &#123;</span><br><span class="line">              flag = false;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">          if (flag) &#123;</span><br><span class="line">            window.location = `$&#123;HP.AUTH_URL&#125;`;</span><br><span class="line">          &#125;</span><br><span class="line">          break;</span><br><span class="line">        &#125;</span><br><span class="line">        case 403: &#123;</span><br><span class="line">          const errorData = response.data;</span><br><span class="line">          const content = errorData.error_description || errorData.error || HP.getMessage(&apos;未知错误&apos;, &apos;unknown error&apos;);</span><br><span class="line">          HP.prompt(&apos;error&apos;, content);</span><br><span class="line">          break;</span><br><span class="line">        &#125;</span><br><span class="line">        case 404: &#123;</span><br><span class="line">          HP.prompt(&apos;error&apos;, &apos;Not Found&apos;);</span><br><span class="line">          break;</span><br><span class="line">        &#125;</span><br><span class="line">        case 500: &#123;</span><br><span class="line">          HP.prompt(&apos;error&apos;, HP.getMessage(&apos;服务器内部错误&apos;, &apos;Server Internal Error&apos;));</span><br><span class="line">          break;</span><br><span class="line">        &#125;</span><br><span class="line">        default:</span><br><span class="line">          break;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // request is rejected and will direct logic to the catch() method</span><br><span class="line">    return Promise.reject(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>5.WebSocket配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">const cookies = new Cookies();</span><br><span class="line">const accessToken = cookies.get(ACCESS_TOKEN);</span><br><span class="line">// 发送消息体</span><br><span class="line">const clientMessage = &#123;</span><br><span class="line">  // 固定值</span><br><span class="line">  flag: &apos;pc&apos;,</span><br><span class="line">&#125;;</span><br><span class="line">// webSocket服务器</span><br><span class="line">const webSocketServer = config.webSocketServer;</span><br><span class="line">// webSocket对象</span><br><span class="line">let lockReconnect = false; // 避免重复连接</span><br><span class="line">// WebSocket地址</span><br><span class="line">const wsUrl = `$&#123;webSocketServer&#125;/risk/websocket`;</span><br><span class="line">let ws;</span><br><span class="line">let tt;</span><br><span class="line">class WSDemo extends Component &#123; </span><br><span class="line">constructor(props) &#123;</span><br><span class="line">    super(props);</span><br><span class="line">    this.state = &#123;</span><br><span class="line">    // ws心跳检测</span><br><span class="line">    this.checkResult = null;</span><br><span class="line">    this.timeout = 60000;</span><br><span class="line">    this.timeoutObj = null;</span><br><span class="line">    this.serverTimeoutObj = null;</span><br><span class="line">    this.unmount = false;</span><br><span class="line">    this.heartCheck = &#123;</span><br><span class="line">      start: () =&gt; &#123;</span><br><span class="line">        console.log(&apos;start heart check-this:&apos;);</span><br><span class="line">        if (this.timeoutObj) clearTimeout(this.timeoutObj);</span><br><span class="line">        if (this.serverTimeoutObj) clearTimeout(this.serverTimeoutObj);</span><br><span class="line">        this.timeoutObj = setTimeout(() =&gt; &#123;</span><br><span class="line">          // 这里发送一个心跳，后端收到后，返回一个心跳消息，</span><br><span class="line">          // clientMessage.checkHeart = true;</span><br><span class="line">          ws.send(JSON.stringify(clientMessage));</span><br><span class="line">          this.serverTimeoutObj = setTimeout(() =&gt; &#123;</span><br><span class="line">            if (this.checkResult === null) &#123;</span><br><span class="line">              console.log(&apos;ws服务端响应超时&apos;);</span><br><span class="line">              ws.close();</span><br><span class="line">            &#125;</span><br><span class="line">            setTimeout(() =&gt; &#123; this.checkResult = null; &#125;, 30);</span><br><span class="line">            // this.createWebSocket();</span><br><span class="line">          &#125;, this.timeout);</span><br><span class="line">        &#125;, this.timeout);</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">    this.createWebSocket(wsUrl);</span><br><span class="line">&#125;</span><br><span class="line">// 断线重连机制</span><br><span class="line"> reconnect = (url) =&gt; &#123;</span><br><span class="line">    if (lockReconnect) &#123;</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    lockReconnect = true;</span><br><span class="line">    // 没连接上会一直重连，设置延迟避免请求过多</span><br><span class="line">    if (tt) clearTimeout(tt);</span><br><span class="line">    tt = setTimeout(() =&gt; &#123;</span><br><span class="line">      this.createWebSocket(url);</span><br><span class="line">      lockReconnect = false;</span><br><span class="line">    &#125;, 4000);</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line">  createWebSocket = () =&gt; &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      ws = new WebSocket(wsUrl);</span><br><span class="line">      this.init();</span><br><span class="line">    &#125; catch (e) &#123;</span><br><span class="line">      console.log(&apos;catch&apos;);</span><br><span class="line">      this.reconnect(wsUrl);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  init = () =&gt; &#123;</span><br><span class="line">    ws.onclose = () =&gt; &#123;</span><br><span class="line">      console.log(&apos;链接关闭&apos;);</span><br><span class="line">      if (!this.unmount) this.reconnect(wsUrl);</span><br><span class="line">    &#125;;</span><br><span class="line">    ws.onerror = () =&gt; &#123;</span><br><span class="line">      console.log(&apos;发生异常了&apos;);</span><br><span class="line">      this.reconnect(wsUrl);</span><br><span class="line">    &#125;;</span><br><span class="line">    ws.onopen = () =&gt; &#123;</span><br><span class="line">      console.log(&apos;连接成功..&apos;, event);</span><br><span class="line">      clientMessage.token = accessToken;</span><br><span class="line">      // 发送消息</span><br><span class="line">      console.log(&apos;wsToken:&apos;, clientMessage);</span><br><span class="line">      ws.send(JSON.stringify(clientMessage));</span><br><span class="line">      delete clientMessage.token;</span><br><span class="line">      // 心跳检测重置</span><br><span class="line">      this.heartCheck.start();</span><br><span class="line">    &#125;;</span><br><span class="line">    ws.onmessage = (event) =&gt; &#123;</span><br><span class="line">      console.log(&apos;接收到消息&apos;);</span><br><span class="line">      console.log(&apos;推送的数据:&apos;, event.data);</span><br><span class="line">      const pushData = JSON.parse(event.data);</span><br><span class="line">      // 开始数据处理</span><br><span class="line">     &#125;;</span><br><span class="line">    // 监听是否退出页面</span><br><span class="line">    window.onbeforeunload = () =&gt; &#123;</span><br><span class="line">      console.log(&apos;====lr===&apos;, &apos;willMount call&apos;);</span><br><span class="line">      ws.close();</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        <div class="post-reply">
+            
+            <div class="vcomments"></div>
+
+            <!--Leancloud 操作库:-->
+            <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+            <!--Valine 的核心代码库:-->
+            <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+            <script>
+                new Valine({
+                    el: '.vcomments',
+                    appId: "cUp1F343i6H7veqjhDDOOG7s-gzGzoHsz",
+                    appKey: "cBN1k4HFtguRAnAlQTW4Kcua",
+                    placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊! 评论我',
+                    enable: true,
+                    notify: false,
+                    verify: false,
+                    pageSize: 10
+                })
+            </script>
+            
+
+            
+
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © Liu Run 2019
+        <br>
+        <!--Work Email: run.liu01@hand-china.com-->
+        <br>
+        Thanks for Theme by <a href="http://haojen.github.io/">Haojen Ma</a>
+        <br>
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>
