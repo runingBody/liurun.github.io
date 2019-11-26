@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="full-height">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -37,7 +37,7 @@
   
 
 </head>
-</html>
+
 <body>
   <header id="navbar" class="overflow-hidden">
   <div class="container">
@@ -175,7 +175,7 @@
 <h4 id="3-加载非Js文件"><a href="#3-加载非Js文件" class="headerlink" title="3. 加载非Js文件"></a>3. 加载非Js文件</h4><h4 id="1-gt-加载Css文件"><a href="#1-gt-加载Css文件" class="headerlink" title="1&gt; 加载Css文件"></a>1&gt; 加载Css文件</h4><h5 id="安装-css-和-style-模块解析的依赖-style-loader-和-css-loader"><a href="#安装-css-和-style-模块解析的依赖-style-loader-和-css-loader" class="headerlink" title="安装 css 和 style 模块解析的依赖 style-loader 和 css-loader"></a>安装 css 和 style 模块解析的依赖 style-loader 和 css-loader</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev style-loader css-loader</span><br></pre></td></tr></table></figure>
 <h5 id="添加-css-解析的-loader"><a href="#添加-css-解析的-loader" class="headerlink" title="添加 css 解析的 loader"></a>添加 css 解析的 loader</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &apos;./src/index.js&apos;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &apos;bundle.js&apos;,</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;)</span><br><span class="line">  &#125;,</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.css$/,</span><br><span class="line">        use: [&apos;style-loader&apos;, &apos;css-loader&apos;]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p><em>PS:<br>css-loader： 辅助解析 js 中的 import ‘./main.css’<br>style-loader: 把 js 中引入的 css 内容 注入到 html 标签中，并添加 style 标签.依赖 css-loader</em></p>
-<p><strong>你可以在依赖于此样式的 js 文件中 导入样式文件，比如：import ‘./style.css’。现在，当该 js 模块运行时，含有 CSS 字符串的 style 标签，将被插入到 html 文件的 <head><meta name="generator" content="Hexo 3.8.0">中。</head></strong></p>
+<p><strong>你可以在依赖于此样式的 js 文件中 导入样式文件，比如：import ‘./style.css’。现在，当该 js 模块运行时，含有 CSS 字符串的 style 标签，将被插入到 html 文件的 <head>中。</head></strong></p>
 <h3 id="二、Module配置补充"><a href="#二、Module配置补充" class="headerlink" title="二、Module配置补充"></a>二、Module配置补充</h3><p>模块(module): 这些选项决定了如何处理项目中的不同类型的模块。<br>webpack 模块可以支持如下:</p>
 <ul>
 <li>ES2015 import 语句</li>
